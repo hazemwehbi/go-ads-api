@@ -27,6 +27,14 @@ The submission checkout was checked on 2026-11-02 with Go 1.26.10 in Linux conta
 
 All seven files under `/users` match the original template. Verification mounted the checkout read-only, used an isolated disposable database/network and removed those resources afterwards. Running application containers and application data were not changed. Only verification evidence and this report were updated.
 
+## Lint and CI verification
+
+The pinned golangci-lint v2.15.0 configuration passed with zero issues. Its schema was validated. The enabled checks cover ads/common, including integration and load test files. Resource cleanup findings were resolved with test assertions or explicit best-effort cleanup; the users code was preserved.
+
+The updated [one-command verification](quality-verification.txt) passed lint, formatting, vet, PostgreSQL/HTTP tests with race detection, vulnerability scanning and the Docker image build. The [optional load regression](quality-load-tests.txt) also passed all four scenarios. [Standalone lint output](lint-check.txt) records the clean result.
+
+The GitHub workflow now includes the same lint image/configuration and an image-build step. The workflow has been prepared and its commands verified locally; its next GitHub execution depends on pushing these changes to the repository. These checks do not deploy the application.
+
 ## Limits and next steps
 
 These checks do not establish capacity for 30 million customers. Before a production rollout, measure realistic traffic, database size and latency, then decide whether shared caching or other infrastructure is needed. Real authentication and operational monitoring are also required.

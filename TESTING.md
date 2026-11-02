@@ -8,7 +8,7 @@ From the project directory in PowerShell:
 ./scripts/verify.ps1
 ```
 
-Docker Desktop must be running with Linux containers and Docker Compose. No local Go or C compiler is needed. The command checks formatting, runs go vet, executes unit and integration tests with race detection, and checks known vulnerabilities. It stops on failure and shows each test name.
+Docker Desktop must be running with Linux containers and Docker Compose. No local Go or C compiler is needed. The command runs golangci-lint v2.15.0, checks formatting, runs go vet, executes unit and integration tests with race detection, checks known vulnerabilities and builds the ads API Docker image. It stops on failure and shows each test name.
 
 Tests use a separate PostgreSQL test database. Each integration test creates its own schema and removes it afterwards. Application data is not changed. The test service remains available for another run; stop it with:
 
@@ -93,3 +93,7 @@ These checks are future proposals. The current work stays focused on the assessm
 ## Limited local load test
 
 Run `./scripts/load-test.ps1` for the opt-in PostgreSQL/HTTP workload. It uses isolated test schemas and exercises mixed reads/writes, slow user lookups and slow database inserts. It is excluded from ordinary verification. See [the load report](validation/LOAD_TEST.md) for setup, recorded results and limitations. This short closed-loop check is not production capacity validation.
+
+## Lint
+
+`./scripts/lint.ps1` runs the pinned Docker linter with `.golangci.yml`, matching CI. It checks ads/common, including integration/load-tagged tests, without starting a database. Run `./scripts/verify.ps1` for all ordinary verification steps and the Docker image build. The linter's cache volumes contain only tool/module caches.

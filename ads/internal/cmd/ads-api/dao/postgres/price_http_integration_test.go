@@ -40,7 +40,7 @@ func TestIntegrationHTTPPriceCompatibility(t *testing.T) {
 		}
 		resp, err := client.Do(req)
 		require.NoError(t, err)
-		defer resp.Body.Close()
+		defer func() { require.NoError(t, resp.Body.Close()) }()
 		var raw json.RawMessage
 		require.NoError(t, json.NewDecoder(resp.Body).Decode(&raw))
 		require.Equal(t, status, resp.StatusCode, string(raw))

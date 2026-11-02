@@ -1,0 +1,897 @@
+0 issues.
+time="2026-11-02T21:06:39+01:00" level=warning msg="Found orphan containers (backend-go-v2-migrate-1) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+ Container backend-go-v2-test-database-1 Running 
+ Container backend-go-v2-test-database-1 Waiting 
+ Container backend-go-v2-test-database-1 Healthy 
+Checking formatting
+Running go vet
+Running unit, PostgreSQL and HTTP integration tests with race detection
+=== RUN   TestConfig
+--- PASS: TestConfig (0.00s)
+=== RUN   TestIdentityResilienceConfig
+--- PASS: TestIdentityResilienceConfig (0.00s)
+PASS
+ok  	github.mpi-internal.com/leboncoin/backend-hiring-assessment/ads/internal/cmd/ads-api	1.055s
+?   	github.mpi-internal.com/leboncoin/backend-hiring-assessment/ads/internal/cmd/ads-api/dao	[no test files]
+=== RUN   TestMock_SearchAds
+=== RUN   TestMock_SearchAds/returns_configured_ads
+=== RUN   TestMock_SearchAds/returns_nil_slice_on_error
+--- PASS: TestMock_SearchAds (0.00s)
+    --- PASS: TestMock_SearchAds/returns_configured_ads (0.00s)
+    --- PASS: TestMock_SearchAds/returns_nil_slice_on_error (0.00s)
+=== RUN   TestMock_GetAdByID
+=== RUN   TestMock_GetAdByID/returns_configured_ad
+=== RUN   TestMock_GetAdByID/returns_ErrNotFound
+--- PASS: TestMock_GetAdByID (0.00s)
+    --- PASS: TestMock_GetAdByID/returns_configured_ad (0.00s)
+    --- PASS: TestMock_GetAdByID/returns_ErrNotFound (0.00s)
+=== RUN   TestMock_CreateAd
+=== RUN   TestMock_CreateAd/returns_generated_ID
+=== RUN   TestMock_CreateAd/returns_storage_errors
+--- PASS: TestMock_CreateAd (0.00s)
+    --- PASS: TestMock_CreateAd/returns_generated_ID (0.00s)
+    --- PASS: TestMock_CreateAd/returns_storage_errors (0.00s)
+=== RUN   TestMock_DeleteAdByID
+=== RUN   TestMock_DeleteAdByID/returns_nil_on_success
+=== RUN   TestMock_DeleteAdByID/returns_ErrNotFound
+--- PASS: TestMock_DeleteAdByID (0.01s)
+    --- PASS: TestMock_DeleteAdByID/returns_nil_on_success (0.00s)
+    --- PASS: TestMock_DeleteAdByID/returns_ErrNotFound (0.00s)
+=== RUN   TestMock_Begin
+=== RUN   TestMock_Begin/returns_the_mock_itself_as_transaction
+=== RUN   TestMock_Begin/returns_configured_error
+--- PASS: TestMock_Begin (0.00s)
+    --- PASS: TestMock_Begin/returns_the_mock_itself_as_transaction (0.00s)
+    --- PASS: TestMock_Begin/returns_configured_error (0.00s)
+=== RUN   TestMock_Commit
+=== RUN   TestMock_Commit/returns_nil_on_success
+=== RUN   TestMock_Commit/returns_configured_error
+--- PASS: TestMock_Commit (0.00s)
+    --- PASS: TestMock_Commit/returns_nil_on_success (0.00s)
+    --- PASS: TestMock_Commit/returns_configured_error (0.00s)
+=== RUN   TestMock_Rollback
+=== RUN   TestMock_Rollback/returns_nil_on_success
+=== RUN   TestMock_Rollback/returns_configured_error
+--- PASS: TestMock_Rollback (0.00s)
+    --- PASS: TestMock_Rollback/returns_nil_on_success (0.00s)
+    --- PASS: TestMock_Rollback/returns_configured_error (0.00s)
+=== RUN   TestMock_ClaimRequest
+=== RUN   TestMock_ClaimRequest/returns_configured_report_result
+=== RUN   TestMock_ClaimRequest/returns_configured_error
+--- PASS: TestMock_ClaimRequest (0.00s)
+    --- PASS: TestMock_ClaimRequest/returns_configured_report_result (0.00s)
+    --- PASS: TestMock_ClaimRequest/returns_configured_error (0.00s)
+=== RUN   TestMock_GetRequestReceipt
+=== RUN   TestMock_GetRequestReceipt/returns_configured_import
+=== RUN   TestMock_GetRequestReceipt/returns_zero_import_on_error
+--- PASS: TestMock_GetRequestReceipt (0.00s)
+    --- PASS: TestMock_GetRequestReceipt/returns_configured_import (0.00s)
+    --- PASS: TestMock_GetRequestReceipt/returns_zero_import_on_error (0.00s)
+=== RUN   TestMock_CompleteRequest
+=== RUN   TestMock_CompleteRequest/returns_nil_on_success
+=== RUN   TestMock_CompleteRequest/returns_configured_error
+--- PASS: TestMock_CompleteRequest (0.00s)
+    --- PASS: TestMock_CompleteRequest/returns_nil_on_success (0.00s)
+    --- PASS: TestMock_CompleteRequest/returns_configured_error (0.00s)
+PASS
+ok  	github.mpi-internal.com/leboncoin/backend-hiring-assessment/ads/internal/cmd/ads-api/dao/mock	1.111s
+=== RUN   TestIntegrationHTTPDeleteOwnershipAndIsolation
+--- PASS: TestIntegrationHTTPDeleteOwnershipAndIsolation (0.28s)
+=== RUN   TestIntegrationHTTPUserEnrichment
+=== RUN   TestIntegrationHTTPUserEnrichment/success
+=== RUN   TestIntegrationHTTPUserEnrichment/not_found
+2026/11/02 20:06:47 WARN unable to get ad owner username reason=not_found ad_id=1 user_id=aaaaaaaa-aaaa-4aaa-aaaa-aaaaaaaaaaaa error.reason=not_found error.cause="user not found"
+=== RUN   TestIntegrationHTTPUserEnrichment/timeout
+2026/11/02 20:06:47 WARN unable to get ad owner username reason=timeout ad_id=1 user_id=aaaaaaaa-aaaa-4aaa-aaaa-aaaaaaaaaaaa error.reason=timeout error.operation=Get error.cause="context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+=== RUN   TestIntegrationHTTPUserEnrichment/invalid_JSON
+2026/11/02 20:06:47 WARN unable to get ad owner username reason=invalid_response ad_id=1 user_id=aaaaaaaa-aaaa-4aaa-aaaa-aaaaaaaaaaaa error.reason=invalid_response error.cause="unable to decode user response: unexpected EOF"
+=== RUN   TestIntegrationHTTPUserEnrichment/opaque_HTTP_failure
+2026/11/02 20:06:47 WARN unable to get ad owner username reason=unexpected ad_id=1 user_id=aaaaaaaa-aaaa-4aaa-aaaa-aaaaaaaaaaaa error.reason=unexpected error.cause="identity service answered 503"
+=== RUN   TestIntegrationHTTPUserEnrichment/recovery
+--- PASS: TestIntegrationHTTPUserEnrichment (0.20s)
+    --- PASS: TestIntegrationHTTPUserEnrichment/success (0.00s)
+    --- PASS: TestIntegrationHTTPUserEnrichment/not_found (0.00s)
+    --- PASS: TestIntegrationHTTPUserEnrichment/timeout (0.03s)
+    --- PASS: TestIntegrationHTTPUserEnrichment/invalid_JSON (0.00s)
+    --- PASS: TestIntegrationHTTPUserEnrichment/opaque_HTTP_failure (0.00s)
+    --- PASS: TestIntegrationHTTPUserEnrichment/recovery (0.00s)
+=== RUN   TestIntegrationHTTPGetAdSelectsRequestedRecord
+=== RUN   TestIntegrationHTTPGetAdSelectsRequestedRecord/Chair
+=== RUN   TestIntegrationHTTPGetAdSelectsRequestedRecord/Bike
+=== RUN   TestIntegrationHTTPGetAdSelectsRequestedRecord/Chair#01
+--- PASS: TestIntegrationHTTPGetAdSelectsRequestedRecord (0.14s)
+    --- PASS: TestIntegrationHTTPGetAdSelectsRequestedRecord/Chair (0.00s)
+    --- PASS: TestIntegrationHTTPGetAdSelectsRequestedRecord/Bike (0.00s)
+    --- PASS: TestIntegrationHTTPGetAdSelectsRequestedRecord/Chair#01 (0.00s)
+=== RUN   TestIntegrationHTTPCreateRetryAndQuota
+--- PASS: TestIntegrationHTTPCreateRetryAndQuota (0.23s)
+=== RUN   TestIntegrationHTTPImportLostResponse
+--- PASS: TestIntegrationHTTPImportLostResponse (0.16s)
+=== RUN   TestIntegrationHTTPImportRollbackRetry
+2026/11/02 20:06:48 ERROR unable to import ads user_id=aaaaaaaa-aaaa-4aaa-aaaa-aaaaaaaaaaaa idempotency_key=retry-batch ads_count=2 error="unable to import ad 1: unable to create ad: ERROR: injected second-row failure (SQLSTATE P0001)"
+--- PASS: TestIntegrationHTTPImportRollbackRetry (0.20s)
+=== RUN   TestIntegrationQuotaConcurrentInstances
+--- PASS: TestIntegrationQuotaConcurrentInstances (0.55s)
+=== RUN   TestIntegrationImportConcurrentReplayAndOwnership
+--- PASS: TestIntegrationImportConcurrentReplayAndOwnership (0.60s)
+=== RUN   TestIntegrationImportRollbackAndRetry
+--- PASS: TestIntegrationImportRollbackAndRetry (0.20s)
+=== RUN   TestIntegrationCancellationReleasesTransactions
+--- PASS: TestIntegrationCancellationReleasesTransactions (0.41s)
+=== RUN   TestIntegrationDeleteAndSearch
+--- PASS: TestIntegrationDeleteAndSearch (0.33s)
+=== RUN   TestIntegrationPublicationFailureRollsBackAd
+--- PASS: TestIntegrationPublicationFailureRollsBackAd (0.22s)
+=== RUN   TestIntegrationRollingBoundaryAndZeroPrice
+--- PASS: TestIntegrationRollingBoundaryAndZeroPrice (0.17s)
+=== RUN   TestIntegrationCreateIdempotency
+--- PASS: TestIntegrationCreateIdempotency (0.49s)
+=== RUN   TestIntegrationCreateReceiptRollback
+--- PASS: TestIntegrationCreateReceiptRollback (0.16s)
+=== RUN   TestIntegrationCreateKeyCancellation
+--- PASS: TestIntegrationCreateKeyCancellation (0.28s)
+=== RUN   TestIntegrationReceiptMigrationPreservesImports
+--- PASS: TestIntegrationReceiptMigrationPreservesImports (0.14s)
+=== RUN   TestSearchAds
+=== RUN   TestSearchAds/returns_matching_ads
+=== RUN   TestSearchAds/returns_nil_when_no_ads_match
+=== RUN   TestSearchAds/returns_error_when_query_fails
+--- PASS: TestSearchAds (0.00s)
+    --- PASS: TestSearchAds/returns_matching_ads (0.00s)
+    --- PASS: TestSearchAds/returns_nil_when_no_ads_match (0.00s)
+    --- PASS: TestSearchAds/returns_error_when_query_fails (0.00s)
+=== RUN   TestGetAdByID
+=== RUN   TestGetAdByID/returns_ad_on_success
+=== RUN   TestGetAdByID/returns_ErrNotFound_when_no_row
+=== RUN   TestGetAdByID/returns_error_on_query_failure
+--- PASS: TestGetAdByID (0.00s)
+    --- PASS: TestGetAdByID/returns_ad_on_success (0.00s)
+    --- PASS: TestGetAdByID/returns_ErrNotFound_when_no_row (0.00s)
+    --- PASS: TestGetAdByID/returns_error_on_query_failure (0.00s)
+=== RUN   TestCreateAd
+=== RUN   TestCreateAd/returns_generated_ID_on_success
+=== RUN   TestCreateAd/preserves_database_constraint_errors
+=== RUN   TestCreateAd/returns_error_on_other_failures
+--- PASS: TestCreateAd (0.00s)
+    --- PASS: TestCreateAd/returns_generated_ID_on_success (0.00s)
+    --- PASS: TestCreateAd/preserves_database_constraint_errors (0.00s)
+    --- PASS: TestCreateAd/returns_error_on_other_failures (0.00s)
+=== RUN   TestDeleteAdByID
+=== RUN   TestDeleteAdByID/deletes_the_ad
+=== RUN   TestDeleteAdByID/returns_ErrNotFound_when_no_row_is_deleted
+=== RUN   TestDeleteAdByID/returns_error_on_query_failure
+=== RUN   TestDeleteAdByID/returns_error_when_affected_rows_cannot_be_read
+--- PASS: TestDeleteAdByID (0.00s)
+    --- PASS: TestDeleteAdByID/deletes_the_ad (0.00s)
+    --- PASS: TestDeleteAdByID/returns_ErrNotFound_when_no_row_is_deleted (0.00s)
+    --- PASS: TestDeleteAdByID/returns_error_on_query_failure (0.00s)
+    --- PASS: TestDeleteAdByID/returns_error_when_affected_rows_cannot_be_read (0.00s)
+=== RUN   TestTransaction
+=== RUN   TestTransaction/commits_every_call_made_on_the_transaction
+=== RUN   TestTransaction/rolls_back_without_committing
+=== RUN   TestTransaction/returns_error_when_the_transaction_cannot_be_opened
+=== RUN   TestTransaction/rollback_after_commit_does_nothing
+=== RUN   TestTransaction/rejects_a_nested_transaction
+=== RUN   TestTransaction/refuses_commit_and_rollback_outside_a_transaction
+--- PASS: TestTransaction (0.00s)
+    --- PASS: TestTransaction/commits_every_call_made_on_the_transaction (0.00s)
+    --- PASS: TestTransaction/rolls_back_without_committing (0.00s)
+    --- PASS: TestTransaction/returns_error_when_the_transaction_cannot_be_opened (0.00s)
+    --- PASS: TestTransaction/rollback_after_commit_does_nothing (0.00s)
+    --- PASS: TestTransaction/rejects_a_nested_transaction (0.00s)
+    --- PASS: TestTransaction/refuses_commit_and_rollback_outside_a_transaction (0.00s)
+=== RUN   TestClaimRequest
+=== RUN   TestClaimRequest/returns_true_when_the_key_is_new
+=== RUN   TestClaimRequest/returns_false_when_the_key_is_already_recorded
+=== RUN   TestClaimRequest/returns_error_on_query_failure
+=== RUN   TestClaimRequest/returns_error_when_affected_rows_cannot_be_read
+--- PASS: TestClaimRequest (0.00s)
+    --- PASS: TestClaimRequest/returns_true_when_the_key_is_new (0.00s)
+    --- PASS: TestClaimRequest/returns_false_when_the_key_is_already_recorded (0.00s)
+    --- PASS: TestClaimRequest/returns_error_on_query_failure (0.00s)
+    --- PASS: TestClaimRequest/returns_error_when_affected_rows_cannot_be_read (0.00s)
+=== RUN   TestGetRequestReceipt
+=== RUN   TestGetRequestReceipt/returns_the_recorded_import
+=== RUN   TestGetRequestReceipt/returns_ErrNotFound_when_no_row
+=== RUN   TestGetRequestReceipt/returns_error_on_query_failure
+--- PASS: TestGetRequestReceipt (0.00s)
+    --- PASS: TestGetRequestReceipt/returns_the_recorded_import (0.00s)
+    --- PASS: TestGetRequestReceipt/returns_ErrNotFound_when_no_row (0.00s)
+    --- PASS: TestGetRequestReceipt/returns_error_on_query_failure (0.00s)
+=== RUN   TestCompleteRequest
+=== RUN   TestCompleteRequest/stores_the_ad_ids
+=== RUN   TestCompleteRequest/returns_ErrNotFound_when_the_import_is_not_reported
+=== RUN   TestCompleteRequest/returns_error_on_query_failure
+=== RUN   TestCompleteRequest/returns_error_when_affected_rows_cannot_be_read
+--- PASS: TestCompleteRequest (0.00s)
+    --- PASS: TestCompleteRequest/stores_the_ad_ids (0.00s)
+    --- PASS: TestCompleteRequest/returns_ErrNotFound_when_the_import_is_not_reported (0.00s)
+    --- PASS: TestCompleteRequest/returns_error_on_query_failure (0.00s)
+    --- PASS: TestCompleteRequest/returns_error_when_affected_rows_cannot_be_read (0.00s)
+=== RUN   TestIntegrationHTTPPriceCompatibility
+2026/11/02 20:06:52 WARN unable to get ad owner username reason=not_found ad_id=1 user_id=aaaaaaaa-aaaa-4aaa-aaaa-aaaaaaaaaaaa error.reason=not_found error.cause="user not found"
+2026/11/02 20:06:52 WARN unable to get ad owner username reason=not_found ad_id=2 user_id=aaaaaaaa-aaaa-4aaa-aaaa-aaaaaaaaaaaa error.reason=not_found error.cause="user not found"
+2026/11/02 20:06:52 WARN unable to get ad owner username reason=not_found ad_id=3 user_id=aaaaaaaa-aaaa-4aaa-aaaa-aaaaaaaaaaaa error.reason=not_found error.cause="user not found"
+--- PASS: TestIntegrationHTTPPriceCompatibility (0.20s)
+=== RUN   TestIntegrationHTTPRejectsAmbiguousInput
+--- PASS: TestIntegrationHTTPRejectsAmbiguousInput (0.15s)
+PASS
+ok  	github.mpi-internal.com/leboncoin/backend-hiring-assessment/ads/internal/cmd/ads-api/dao/postgres	6.179s
+=== RUN   Test_AdID_String
+--- PASS: Test_AdID_String (0.00s)
+=== RUN   TestValidateAd
+--- PASS: TestValidateAd (0.00s)
+=== RUN   TestCanonicalOwner
+--- PASS: TestCanonicalOwner (0.00s)
+PASS
+ok  	github.mpi-internal.com/leboncoin/backend-hiring-assessment/ads/internal/cmd/ads-api/domain	1.035s
+=== RUN   TestApplicationErrorBodies
+=== RUN   TestApplicationErrorBodies/missing_identity
+=== RUN   TestApplicationErrorBodies/bad_id
+=== RUN   TestApplicationErrorBodies/missing_ad
+=== RUN   TestApplicationErrorBodies/storage_failure
+2026/11/02 20:06:47 ERROR unable to delete ad ad_id=1 error="secret database address"
+--- PASS: TestApplicationErrorBodies (0.00s)
+    --- PASS: TestApplicationErrorBodies/missing_identity (0.00s)
+    --- PASS: TestApplicationErrorBodies/bad_id (0.00s)
+    --- PASS: TestApplicationErrorBodies/missing_ad (0.00s)
+    --- PASS: TestApplicationErrorBodies/storage_failure (0.00s)
+=== RUN   TestOpenAPIApplicationErrorsAndLimits
+--- PASS: TestOpenAPIApplicationErrorsAndLimits (0.03s)
+=== RUN   TestOpenAPINullableUsername
+--- PASS: TestOpenAPINullableUsername (0.02s)
+=== RUN   TestHandlerCreateAd
+=== RUN   TestHandlerCreateAd/returns_201_with_ID_on_success
+=== RUN   TestHandlerCreateAd/passes_authenticated_user_ID_as_owner_to_the_usecase
+=== RUN   TestHandlerCreateAd/converts_price_in_euros_to_cents
+=== RUN   TestHandlerCreateAd/accepts_price_cents_0
+=== RUN   TestHandlerCreateAd/returns_400_when_price_is_invalid
+=== RUN   TestHandlerCreateAd/returns_400_when_price_is_invalid/more_than_2_decimals
+=== RUN   TestHandlerCreateAd/returns_400_when_price_is_invalid/negative
+=== RUN   TestHandlerCreateAd/returns_400_when_price_is_invalid/price_and_price_cents_missing
+=== RUN   TestHandlerCreateAd/returns_400_when_price_is_invalid/price_and_price_cents_both_sent
+=== RUN   TestHandlerCreateAd/returns_401_when_Authorization_header_is_missing
+=== RUN   TestHandlerCreateAd/returns_400_when_body_is_invalid_JSON
+=== RUN   TestHandlerCreateAd/returns_500_when_the_usecase_errors
+2026/11/02 20:06:47 ERROR unable to create ad user_id=00000000-0000-0000-0000-000000000001 error="db down"
+--- PASS: TestHandlerCreateAd (0.03s)
+    --- PASS: TestHandlerCreateAd/returns_201_with_ID_on_success (0.01s)
+    --- PASS: TestHandlerCreateAd/passes_authenticated_user_ID_as_owner_to_the_usecase (0.00s)
+    --- PASS: TestHandlerCreateAd/converts_price_in_euros_to_cents (0.00s)
+    --- PASS: TestHandlerCreateAd/accepts_price_cents_0 (0.00s)
+    --- PASS: TestHandlerCreateAd/returns_400_when_price_is_invalid (0.01s)
+        --- PASS: TestHandlerCreateAd/returns_400_when_price_is_invalid/more_than_2_decimals (0.00s)
+        --- PASS: TestHandlerCreateAd/returns_400_when_price_is_invalid/negative (0.00s)
+        --- PASS: TestHandlerCreateAd/returns_400_when_price_is_invalid/price_and_price_cents_missing (0.00s)
+        --- PASS: TestHandlerCreateAd/returns_400_when_price_is_invalid/price_and_price_cents_both_sent (0.00s)
+    --- PASS: TestHandlerCreateAd/returns_401_when_Authorization_header_is_missing (0.00s)
+    --- PASS: TestHandlerCreateAd/returns_400_when_body_is_invalid_JSON (0.00s)
+    --- PASS: TestHandlerCreateAd/returns_500_when_the_usecase_errors (0.00s)
+=== RUN   TestCreateIdempotencyHeader
+=== RUN   TestCreateIdempotencyHeader/omitted
+=== RUN   TestCreateIdempotencyHeader/valid
+=== RUN   TestCreateIdempotencyHeader/empty
+=== RUN   TestCreateIdempotencyHeader/duplicate
+=== RUN   TestCreateIdempotencyHeader/invalid
+=== RUN   TestCreateIdempotencyHeader/conflict
+--- PASS: TestCreateIdempotencyHeader (0.00s)
+    --- PASS: TestCreateIdempotencyHeader/omitted (0.00s)
+    --- PASS: TestCreateIdempotencyHeader/valid (0.00s)
+    --- PASS: TestCreateIdempotencyHeader/empty (0.00s)
+    --- PASS: TestCreateIdempotencyHeader/duplicate (0.00s)
+    --- PASS: TestCreateIdempotencyHeader/invalid (0.00s)
+    --- PASS: TestCreateIdempotencyHeader/conflict (0.00s)
+=== RUN   TestHandlerDeleteAd
+=== RUN   TestHandlerDeleteAd/returns_204_on_success
+=== RUN   TestHandlerDeleteAd/passes_the_ad_ID_and_the_authenticated_user_to_the_usecase
+=== RUN   TestHandlerDeleteAd/returns_401_when_Authorization_header_is_missing
+=== RUN   TestHandlerDeleteAd/returns_400_when_adID_is_not_a_number
+=== RUN   TestHandlerDeleteAd/returns_404_when_the_ad_does_not_exist_or_is_not_owned_by_the_user
+=== RUN   TestHandlerDeleteAd/returns_500_on_unexpected_usecase_error
+2026/11/02 20:06:47 ERROR unable to delete ad ad_id=1 error="db down"
+--- PASS: TestHandlerDeleteAd (0.01s)
+    --- PASS: TestHandlerDeleteAd/returns_204_on_success (0.00s)
+    --- PASS: TestHandlerDeleteAd/passes_the_ad_ID_and_the_authenticated_user_to_the_usecase (0.00s)
+    --- PASS: TestHandlerDeleteAd/returns_401_when_Authorization_header_is_missing (0.00s)
+    --- PASS: TestHandlerDeleteAd/returns_400_when_adID_is_not_a_number (0.00s)
+    --- PASS: TestHandlerDeleteAd/returns_404_when_the_ad_does_not_exist_or_is_not_owned_by_the_user (0.00s)
+    --- PASS: TestHandlerDeleteAd/returns_500_on_unexpected_usecase_error (0.00s)
+=== RUN   TestHandlerGetAd
+=== RUN   TestHandlerGetAd/returns_200_with_ad_JSON_on_success
+=== RUN   TestHandlerGetAd/returns_400_when_adID_is_not_a_number
+=== RUN   TestHandlerGetAd/returns_404_when_ad_does_not_exist
+=== RUN   TestHandlerGetAd/returns_500_on_unexpected_usecase_error
+2026/11/02 20:06:47 ERROR unable to get ad ad_id=1 error="db down"
+=== RUN   TestHandlerGetAd/passes_the_correct_ad_ID_to_the_usecase
+--- PASS: TestHandlerGetAd (0.01s)
+    --- PASS: TestHandlerGetAd/returns_200_with_ad_JSON_on_success (0.00s)
+    --- PASS: TestHandlerGetAd/returns_400_when_adID_is_not_a_number (0.00s)
+    --- PASS: TestHandlerGetAd/returns_404_when_ad_does_not_exist (0.00s)
+    --- PASS: TestHandlerGetAd/returns_500_on_unexpected_usecase_error (0.00s)
+    --- PASS: TestHandlerGetAd/passes_the_correct_ad_ID_to_the_usecase (0.00s)
+=== RUN   TestGetAdNullableContractAndDependencyErrors
+=== RUN   TestGetAdNullableContractAndDependencyErrors/null
+=== RUN   TestGetAdNullableContractAndDependencyErrors/bad_upstream
+=== RUN   TestGetAdNullableContractAndDependencyErrors/opaque_upstream
+=== RUN   TestGetAdNullableContractAndDependencyErrors/deadline
+--- PASS: TestGetAdNullableContractAndDependencyErrors (0.00s)
+    --- PASS: TestGetAdNullableContractAndDependencyErrors/null (0.00s)
+    --- PASS: TestGetAdNullableContractAndDependencyErrors/bad_upstream (0.00s)
+    --- PASS: TestGetAdNullableContractAndDependencyErrors/opaque_upstream (0.00s)
+    --- PASS: TestGetAdNullableContractAndDependencyErrors/deadline (0.00s)
+=== RUN   TestHandlerImportAds
+=== RUN   TestHandlerImportAds/passes_key_owner_and_normalized_price
+=== RUN   TestHandlerImportAds/invalid_key_
+=== RUN   TestHandlerImportAds/invalid_key_bad_key
+=== RUN   TestHandlerImportAds/invalid_key_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+=== RUN   TestHandlerImportAds/conflict
+=== RUN   TestHandlerImportAds/invalid_batch
+=== RUN   TestHandlerImportAds/database
+2026/11/02 20:06:47 ERROR unable to import ads user_id=00000000-0000-0000-0000-000000000001 idempotency_key=key-1 ads_count=1 error="private db details"
+=== RUN   TestHandlerImportAds/invalid_later_price
+--- PASS: TestHandlerImportAds (0.02s)
+    --- PASS: TestHandlerImportAds/passes_key_owner_and_normalized_price (0.00s)
+    --- PASS: TestHandlerImportAds/invalid_key_ (0.00s)
+    --- PASS: TestHandlerImportAds/invalid_key_bad_key (0.00s)
+    --- PASS: TestHandlerImportAds/invalid_key_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx (0.00s)
+    --- PASS: TestHandlerImportAds/conflict (0.00s)
+    --- PASS: TestHandlerImportAds/invalid_batch (0.00s)
+    --- PASS: TestHandlerImportAds/database (0.00s)
+    --- PASS: TestHandlerImportAds/invalid_later_price (0.00s)
+=== RUN   TestHandlerListAds
+=== RUN   TestHandlerListAds/returns_200_with_ads_JSON_on_success
+=== RUN   TestHandlerListAds/returns_200_with_empty_ads_array_when_no_results
+=== RUN   TestHandlerListAds/forwards_query_params_to_the_usecase
+=== RUN   TestHandlerListAds/returns_400_when_user_id_is_not_a_valid_UUID
+=== RUN   TestHandlerListAds/converts_price_filters_in_euros_to_cents
+=== RUN   TestHandlerListAds/returns_400_when_price_filters_are_invalid
+=== RUN   TestHandlerListAds/returns_400_when_price_filters_are_invalid/min_price=abc
+=== RUN   TestHandlerListAds/returns_400_when_price_filters_are_invalid/max_price=abc
+=== RUN   TestHandlerListAds/returns_400_when_price_filters_are_invalid/min_price=1.234
+=== RUN   TestHandlerListAds/returns_400_when_price_filters_are_invalid/max_price=-1
+=== RUN   TestHandlerListAds/returns_400_when_price_filters_are_invalid/min_price=10&min_price_cents=1000
+=== RUN   TestHandlerListAds/returns_400_when_price_filters_are_invalid/min_price=10&max_price_cents=5000
+=== RUN   TestHandlerListAds/returns_400_when_price_filters_are_invalid/min_price_cents=1000&max_price=50
+=== RUN   TestHandlerListAds/returns_400_when_min_price_cents_is_not_a_number
+=== RUN   TestHandlerListAds/returns_400_when_max_price_cents_is_not_a_number
+=== RUN   TestHandlerListAds/returns_500_when_the_usecase_errors
+2026/11/02 20:06:47 ERROR unable to list ads user_id="" error="db down"
+--- PASS: TestHandlerListAds (0.03s)
+    --- PASS: TestHandlerListAds/returns_200_with_ads_JSON_on_success (0.00s)
+    --- PASS: TestHandlerListAds/returns_200_with_empty_ads_array_when_no_results (0.00s)
+    --- PASS: TestHandlerListAds/forwards_query_params_to_the_usecase (0.00s)
+    --- PASS: TestHandlerListAds/returns_400_when_user_id_is_not_a_valid_UUID (0.00s)
+    --- PASS: TestHandlerListAds/converts_price_filters_in_euros_to_cents (0.00s)
+    --- PASS: TestHandlerListAds/returns_400_when_price_filters_are_invalid (0.01s)
+        --- PASS: TestHandlerListAds/returns_400_when_price_filters_are_invalid/min_price=abc (0.00s)
+        --- PASS: TestHandlerListAds/returns_400_when_price_filters_are_invalid/max_price=abc (0.00s)
+        --- PASS: TestHandlerListAds/returns_400_when_price_filters_are_invalid/min_price=1.234 (0.00s)
+        --- PASS: TestHandlerListAds/returns_400_when_price_filters_are_invalid/max_price=-1 (0.00s)
+        --- PASS: TestHandlerListAds/returns_400_when_price_filters_are_invalid/min_price=10&min_price_cents=1000 (0.00s)
+        --- PASS: TestHandlerListAds/returns_400_when_price_filters_are_invalid/min_price=10&max_price_cents=5000 (0.00s)
+        --- PASS: TestHandlerListAds/returns_400_when_price_filters_are_invalid/min_price_cents=1000&max_price=50 (0.00s)
+    --- PASS: TestHandlerListAds/returns_400_when_min_price_cents_is_not_a_number (0.00s)
+    --- PASS: TestHandlerListAds/returns_400_when_max_price_cents_is_not_a_number (0.00s)
+    --- PASS: TestHandlerListAds/returns_500_when_the_usecase_errors (0.00s)
+=== RUN   TestMoney
+--- PASS: TestMoney (0.00s)
+=== RUN   TestListRejectsMalformedQuery
+=== RUN   TestListRejectsMalformedQuery/title=%00
+=== RUN   TestListRejectsMalformedQuery/title=%FF
+=== RUN   TestListRejectsMalformedQuery/min_price=%ZZ
+=== RUN   TestListRejectsMalformedQuery/title=bike&max_price=%
+=== RUN   TestListRejectsMalformedQuery/%FF=value
+=== RUN   TestListRejectsMalformedQuery/%00=value
+=== RUN   TestListRejectsMalformedQuery/title=bike;limit=1
+=== RUN   TestListRejectsMalformedQuery/valid_unicode_and_literal_wildcard
+--- PASS: TestListRejectsMalformedQuery (0.00s)
+    --- PASS: TestListRejectsMalformedQuery/title=%00 (0.00s)
+    --- PASS: TestListRejectsMalformedQuery/title=%FF (0.00s)
+    --- PASS: TestListRejectsMalformedQuery/min_price=%ZZ (0.00s)
+    --- PASS: TestListRejectsMalformedQuery/title=bike&max_price=% (0.00s)
+    --- PASS: TestListRejectsMalformedQuery/%FF=value (0.00s)
+    --- PASS: TestListRejectsMalformedQuery/%00=value (0.00s)
+    --- PASS: TestListRejectsMalformedQuery/title=bike;limit=1 (0.00s)
+    --- PASS: TestListRejectsMalformedQuery/valid_unicode_and_literal_wildcard (0.00s)
+=== RUN   TestImportIdempotencyHeader
+=== RUN   TestImportIdempotencyHeader/missing
+=== RUN   TestImportIdempotencyHeader/empty
+=== RUN   TestImportIdempotencyHeader/repeated
+=== RUN   TestImportIdempotencyHeader/repeated_same
+=== RUN   TestImportIdempotencyHeader/invalid
+=== RUN   TestImportIdempotencyHeader/valid
+--- PASS: TestImportIdempotencyHeader (0.00s)
+    --- PASS: TestImportIdempotencyHeader/missing (0.00s)
+    --- PASS: TestImportIdempotencyHeader/empty (0.00s)
+    --- PASS: TestImportIdempotencyHeader/repeated (0.00s)
+    --- PASS: TestImportIdempotencyHeader/repeated_same (0.00s)
+    --- PASS: TestImportIdempotencyHeader/invalid (0.00s)
+    --- PASS: TestImportIdempotencyHeader/valid (0.00s)
+=== RUN   TestAdRoutesRequestContext
+=== RUN   TestAdRoutesRequestContext/wrapped_deadline/GET/ads
+=== RUN   TestAdRoutesRequestContext/wrapped_deadline/GET/ads/1
+=== RUN   TestAdRoutesRequestContext/wrapped_deadline/DELETE/ads/1
+=== RUN   TestAdRoutesRequestContext/wrapped_deadline/POST/ads
+=== RUN   TestAdRoutesRequestContext/wrapped_deadline/POST/ads/import
+=== RUN   TestAdRoutesRequestContext/wrapped_cancellation/GET/ads
+=== RUN   TestAdRoutesRequestContext/wrapped_cancellation/GET/ads/1
+=== RUN   TestAdRoutesRequestContext/wrapped_cancellation/DELETE/ads/1
+=== RUN   TestAdRoutesRequestContext/wrapped_cancellation/POST/ads
+=== RUN   TestAdRoutesRequestContext/wrapped_cancellation/POST/ads/import
+=== RUN   TestAdRoutesRequestContext/driver_deadline/GET/ads
+=== RUN   TestAdRoutesRequestContext/driver_deadline/GET/ads/1
+=== RUN   TestAdRoutesRequestContext/driver_deadline/DELETE/ads/1
+=== RUN   TestAdRoutesRequestContext/driver_deadline/POST/ads
+=== RUN   TestAdRoutesRequestContext/driver_deadline/POST/ads/import
+=== RUN   TestAdRoutesRequestContext/driver_cancellation/GET/ads
+=== RUN   TestAdRoutesRequestContext/driver_cancellation/GET/ads/1
+=== RUN   TestAdRoutesRequestContext/driver_cancellation/DELETE/ads/1
+=== RUN   TestAdRoutesRequestContext/driver_cancellation/POST/ads
+=== RUN   TestAdRoutesRequestContext/driver_cancellation/POST/ads/import
+=== RUN   TestAdRoutesRequestContext/late_success_deadline/GET/ads
+=== RUN   TestAdRoutesRequestContext/late_success_deadline/GET/ads/1
+=== RUN   TestAdRoutesRequestContext/late_success_deadline/DELETE/ads/1
+=== RUN   TestAdRoutesRequestContext/late_success_deadline/POST/ads
+=== RUN   TestAdRoutesRequestContext/late_success_deadline/POST/ads/import
+=== RUN   TestAdRoutesRequestContext/late_success_cancellation/GET/ads
+=== RUN   TestAdRoutesRequestContext/late_success_cancellation/GET/ads/1
+=== RUN   TestAdRoutesRequestContext/late_success_cancellation/DELETE/ads/1
+=== RUN   TestAdRoutesRequestContext/late_success_cancellation/POST/ads
+=== RUN   TestAdRoutesRequestContext/late_success_cancellation/POST/ads/import
+=== RUN   TestAdRoutesRequestContext/ordinary_failure/GET/ads
+2026/11/02 20:06:47 ERROR unable to list ads user_id="" error="private driver error"
+=== RUN   TestAdRoutesRequestContext/ordinary_failure/GET/ads/1
+2026/11/02 20:06:47 ERROR unable to get ad ad_id=1 error="private driver error"
+=== RUN   TestAdRoutesRequestContext/ordinary_failure/DELETE/ads/1
+2026/11/02 20:06:47 ERROR unable to delete ad ad_id=1 error="private driver error"
+=== RUN   TestAdRoutesRequestContext/ordinary_failure/POST/ads
+2026/11/02 20:06:47 ERROR unable to create ad user_id=aaaaaaaa-aaaa-4aaa-aaaa-aaaaaaaaaaaa error="private driver error"
+=== RUN   TestAdRoutesRequestContext/ordinary_failure/POST/ads/import
+2026/11/02 20:06:47 ERROR unable to import ads user_id=aaaaaaaa-aaaa-4aaa-aaaa-aaaaaaaaaaaa idempotency_key=retry ads_count=1 error="private driver error"
+--- PASS: TestAdRoutesRequestContext (0.02s)
+    --- PASS: TestAdRoutesRequestContext/wrapped_deadline/GET/ads (0.00s)
+    --- PASS: TestAdRoutesRequestContext/wrapped_deadline/GET/ads/1 (0.00s)
+    --- PASS: TestAdRoutesRequestContext/wrapped_deadline/DELETE/ads/1 (0.00s)
+    --- PASS: TestAdRoutesRequestContext/wrapped_deadline/POST/ads (0.00s)
+    --- PASS: TestAdRoutesRequestContext/wrapped_deadline/POST/ads/import (0.00s)
+    --- PASS: TestAdRoutesRequestContext/wrapped_cancellation/GET/ads (0.00s)
+    --- PASS: TestAdRoutesRequestContext/wrapped_cancellation/GET/ads/1 (0.00s)
+    --- PASS: TestAdRoutesRequestContext/wrapped_cancellation/DELETE/ads/1 (0.00s)
+    --- PASS: TestAdRoutesRequestContext/wrapped_cancellation/POST/ads (0.00s)
+    --- PASS: TestAdRoutesRequestContext/wrapped_cancellation/POST/ads/import (0.00s)
+    --- PASS: TestAdRoutesRequestContext/driver_deadline/GET/ads (0.00s)
+    --- PASS: TestAdRoutesRequestContext/driver_deadline/GET/ads/1 (0.00s)
+    --- PASS: TestAdRoutesRequestContext/driver_deadline/DELETE/ads/1 (0.00s)
+    --- PASS: TestAdRoutesRequestContext/driver_deadline/POST/ads (0.00s)
+    --- PASS: TestAdRoutesRequestContext/driver_deadline/POST/ads/import (0.00s)
+    --- PASS: TestAdRoutesRequestContext/driver_cancellation/GET/ads (0.00s)
+    --- PASS: TestAdRoutesRequestContext/driver_cancellation/GET/ads/1 (0.00s)
+    --- PASS: TestAdRoutesRequestContext/driver_cancellation/DELETE/ads/1 (0.00s)
+    --- PASS: TestAdRoutesRequestContext/driver_cancellation/POST/ads (0.00s)
+    --- PASS: TestAdRoutesRequestContext/driver_cancellation/POST/ads/import (0.00s)
+    --- PASS: TestAdRoutesRequestContext/late_success_deadline/GET/ads (0.00s)
+    --- PASS: TestAdRoutesRequestContext/late_success_deadline/GET/ads/1 (0.00s)
+    --- PASS: TestAdRoutesRequestContext/late_success_deadline/DELETE/ads/1 (0.00s)
+    --- PASS: TestAdRoutesRequestContext/late_success_deadline/POST/ads (0.00s)
+    --- PASS: TestAdRoutesRequestContext/late_success_deadline/POST/ads/import (0.00s)
+    --- PASS: TestAdRoutesRequestContext/late_success_cancellation/GET/ads (0.00s)
+    --- PASS: TestAdRoutesRequestContext/late_success_cancellation/GET/ads/1 (0.00s)
+    --- PASS: TestAdRoutesRequestContext/late_success_cancellation/DELETE/ads/1 (0.00s)
+    --- PASS: TestAdRoutesRequestContext/late_success_cancellation/POST/ads (0.00s)
+    --- PASS: TestAdRoutesRequestContext/late_success_cancellation/POST/ads/import (0.00s)
+    --- PASS: TestAdRoutesRequestContext/ordinary_failure/GET/ads (0.00s)
+    --- PASS: TestAdRoutesRequestContext/ordinary_failure/GET/ads/1 (0.00s)
+    --- PASS: TestAdRoutesRequestContext/ordinary_failure/DELETE/ads/1 (0.00s)
+    --- PASS: TestAdRoutesRequestContext/ordinary_failure/POST/ads (0.00s)
+    --- PASS: TestAdRoutesRequestContext/ordinary_failure/POST/ads/import (0.00s)
+=== RUN   TestWriteBodyCancellation
+--- PASS: TestWriteBodyCancellation (0.00s)
+=== RUN   TestCreateRequestRejection
+=== RUN   TestCreateRequestRejection/duplicate
+=== RUN   TestCreateRequestRejection/unknown_field
+=== RUN   TestCreateRequestRejection/trailing_object
+=== RUN   TestCreateRequestRejection/array
+=== RUN   TestCreateRequestRejection/null
+=== RUN   TestCreateRequestRejection/missing_price
+=== RUN   TestCreateRequestRejection/null_price
+=== RUN   TestCreateRequestRejection/quoted_price
+=== RUN   TestCreateRequestRejection/both_zero
+=== RUN   TestCreateRequestRejection/null_legacy
+=== RUN   TestCreateRequestRejection/fractional_cents
+=== RUN   TestCreateRequestRejection/huge_exponent
+=== RUN   TestCreateRequestRejection/body_size
+=== RUN   TestCreateRequestRejection/utf8
+=== RUN   TestCreateRequestRejection/depth
+=== RUN   TestCreateRequestRejection/media
+=== RUN   TestCreateRequestRejection/missing_auth
+=== RUN   TestCreateRequestRejection/invalid_auth
+=== RUN   TestCreateRequestRejection/nil_uuid
+--- PASS: TestCreateRequestRejection (0.05s)
+    --- PASS: TestCreateRequestRejection/duplicate (0.00s)
+    --- PASS: TestCreateRequestRejection/unknown_field (0.00s)
+    --- PASS: TestCreateRequestRejection/trailing_object (0.00s)
+    --- PASS: TestCreateRequestRejection/array (0.00s)
+    --- PASS: TestCreateRequestRejection/null (0.00s)
+    --- PASS: TestCreateRequestRejection/missing_price (0.00s)
+    --- PASS: TestCreateRequestRejection/null_price (0.00s)
+    --- PASS: TestCreateRequestRejection/quoted_price (0.00s)
+    --- PASS: TestCreateRequestRejection/both_zero (0.00s)
+    --- PASS: TestCreateRequestRejection/null_legacy (0.00s)
+    --- PASS: TestCreateRequestRejection/fractional_cents (0.00s)
+    --- PASS: TestCreateRequestRejection/huge_exponent (0.00s)
+    --- PASS: TestCreateRequestRejection/body_size (0.03s)
+    --- PASS: TestCreateRequestRejection/utf8 (0.00s)
+    --- PASS: TestCreateRequestRejection/depth (0.00s)
+    --- PASS: TestCreateRequestRejection/media (0.00s)
+    --- PASS: TestCreateRequestRejection/missing_auth (0.00s)
+    --- PASS: TestCreateRequestRejection/invalid_auth (0.00s)
+    --- PASS: TestCreateRequestRejection/nil_uuid (0.00s)
+=== RUN   TestCreateQuotaHTTP
+--- PASS: TestCreateQuotaHTTP (0.00s)
+=== RUN   TestListPagination
+--- PASS: TestListPagination (0.00s)
+=== RUN   TestListCanonicalOwner
+--- PASS: TestListCanonicalOwner (0.00s)
+=== RUN   FuzzPriceRoundTrip
+=== RUN   FuzzPriceRoundTrip/seed#0
+=== RUN   FuzzPriceRoundTrip/seed#1
+=== RUN   FuzzPriceRoundTrip/seed#2
+=== RUN   FuzzPriceRoundTrip/seed#3
+=== RUN   FuzzPriceRoundTrip/seed#4
+=== RUN   FuzzPriceRoundTrip/seed#5
+=== RUN   FuzzPriceRoundTrip/seed#6
+--- PASS: FuzzPriceRoundTrip (0.00s)
+    --- PASS: FuzzPriceRoundTrip/seed#0 (0.00s)
+    --- PASS: FuzzPriceRoundTrip/seed#1 (0.00s)
+    --- PASS: FuzzPriceRoundTrip/seed#2 (0.00s)
+    --- PASS: FuzzPriceRoundTrip/seed#3 (0.00s)
+    --- PASS: FuzzPriceRoundTrip/seed#4 (0.00s)
+    --- PASS: FuzzPriceRoundTrip/seed#5 (0.00s)
+    --- PASS: FuzzPriceRoundTrip/seed#6 (0.00s)
+=== RUN   FuzzDecodeBody
+=== RUN   FuzzDecodeBody/seed#0
+=== RUN   FuzzDecodeBody/seed#1
+=== RUN   FuzzDecodeBody/seed#2
+=== RUN   FuzzDecodeBody/seed#3
+=== RUN   FuzzDecodeBody/seed#4
+=== RUN   FuzzDecodeBody/seed#5
+--- PASS: FuzzDecodeBody (0.00s)
+    --- PASS: FuzzDecodeBody/seed#0 (0.00s)
+    --- PASS: FuzzDecodeBody/seed#1 (0.00s)
+    --- PASS: FuzzDecodeBody/seed#2 (0.00s)
+    --- PASS: FuzzDecodeBody/seed#3 (0.00s)
+    --- PASS: FuzzDecodeBody/seed#4 (0.00s)
+    --- PASS: FuzzDecodeBody/seed#5 (0.00s)
+PASS
+ok  	github.mpi-internal.com/leboncoin/backend-hiring-assessment/ads/internal/cmd/ads-api/http	1.297s
+=== RUN   TestCreateAd
+=== RUN   TestCreateAd/creates_the_ad_and_records_the_publication_below_the_quota
+=== RUN   TestCreateAd/rejects_the_ad_when_the_quota_is_reached
+=== RUN   TestCreateAd/does_not_commit_when_the_creation_fails
+=== RUN   TestCreateAd/does_not_commit_when_the_publication_cannot_be_recorded
+=== RUN   TestCreateAd/returns_error_when_the_owner_lock_fails
+--- PASS: TestCreateAd (0.01s)
+    --- PASS: TestCreateAd/creates_the_ad_and_records_the_publication_below_the_quota (0.00s)
+    --- PASS: TestCreateAd/rejects_the_ad_when_the_quota_is_reached (0.00s)
+    --- PASS: TestCreateAd/does_not_commit_when_the_creation_fails (0.00s)
+    --- PASS: TestCreateAd/does_not_commit_when_the_publication_cannot_be_recorded (0.00s)
+    --- PASS: TestCreateAd/returns_error_when_the_owner_lock_fails (0.00s)
+=== RUN   TestCreateTransactionFailures
+=== RUN   TestCreateTransactionFailures/begin
+=== RUN   TestCreateTransactionFailures/count
+=== RUN   TestCreateTransactionFailures/commit
+--- PASS: TestCreateTransactionFailures (0.00s)
+    --- PASS: TestCreateTransactionFailures/begin (0.00s)
+    --- PASS: TestCreateTransactionFailures/count (0.00s)
+    --- PASS: TestCreateTransactionFailures/commit (0.00s)
+=== RUN   TestCreateIdempotencyFailures
+=== RUN   TestCreateIdempotencyFailures/claim
+=== RUN   TestCreateIdempotencyFailures/read
+=== RUN   TestCreateIdempotencyFailures/complete
+=== RUN   TestCreateIdempotencyFailures/commit
+=== RUN   TestCreateIdempotencyFailures/has_space
+=== RUN   TestCreateIdempotencyFailures/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+=== RUN   TestCreateIdempotencyFailures/é
+--- PASS: TestCreateIdempotencyFailures (0.01s)
+    --- PASS: TestCreateIdempotencyFailures/claim (0.00s)
+    --- PASS: TestCreateIdempotencyFailures/read (0.00s)
+    --- PASS: TestCreateIdempotencyFailures/complete (0.00s)
+    --- PASS: TestCreateIdempotencyFailures/commit (0.00s)
+    --- PASS: TestCreateIdempotencyFailures/has_space (0.00s)
+    --- PASS: TestCreateIdempotencyFailures/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx (0.00s)
+    --- PASS: TestCreateIdempotencyFailures/é (0.00s)
+=== RUN   TestDeleteAd
+=== RUN   TestDeleteAd/nominal
+=== RUN   TestDeleteAd/error_ad_not_found_or_not_owned
+=== RUN   TestDeleteAd/error_from_dao
+--- PASS: TestDeleteAd (0.00s)
+    --- PASS: TestDeleteAd/nominal (0.00s)
+    --- PASS: TestDeleteAd/error_ad_not_found_or_not_owned (0.00s)
+    --- PASS: TestDeleteAd/error_from_dao (0.00s)
+=== RUN   TestGetAdByID
+=== RUN   TestGetAdByID/nominal
+=== RUN   TestGetAdByID/null_username_when_user_service_fails
+2026/11/02 20:06:47 WARN unable to get ad owner username reason=unavailable ad_id=42 user_id=00000000-0000-0000-0000-000000000001 error.reason=unavailable
+=== RUN   TestGetAdByID/missing_adapter_is_a_configuration_error
+=== RUN   TestGetAdByID/error_no_ad_found
+=== RUN   TestGetAdByID/error_from_dao
+--- PASS: TestGetAdByID (0.00s)
+    --- PASS: TestGetAdByID/nominal (0.00s)
+    --- PASS: TestGetAdByID/null_username_when_user_service_fails (0.00s)
+    --- PASS: TestGetAdByID/missing_adapter_is_a_configuration_error (0.00s)
+    --- PASS: TestGetAdByID/error_no_ad_found (0.00s)
+    --- PASS: TestGetAdByID/error_from_dao (0.00s)
+=== RUN   TestGetAdEnrichmentPolicy
+=== RUN   TestGetAdEnrichmentPolicy/timeout
+2026/11/02 20:06:47 WARN unable to get ad owner username reason=timeout ad_id=1 user_id=00000000-0000-0000-0000-000000000001 error="lookup adapter: user lookup: timeout"
+=== RUN   TestGetAdEnrichmentPolicy/unavailable
+2026/11/02 20:06:47 WARN unable to get ad owner username reason=unavailable ad_id=1 user_id=00000000-0000-0000-0000-000000000001 error="lookup adapter: user lookup: unavailable"
+=== RUN   TestGetAdEnrichmentPolicy/not_found
+2026/11/02 20:06:47 WARN unable to get ad owner username reason=not_found ad_id=1 user_id=00000000-0000-0000-0000-000000000001 error="lookup adapter: user lookup: not_found"
+=== RUN   TestGetAdEnrichmentPolicy/circuit_open
+2026/11/02 20:06:47 WARN unable to get ad owner username reason=circuit_open ad_id=1 user_id=00000000-0000-0000-0000-000000000001 error="lookup adapter: user lookup: circuit_open"
+=== RUN   TestGetAdEnrichmentPolicy/capacity
+2026/11/02 20:06:47 WARN unable to get ad owner username reason=capacity ad_id=1 user_id=00000000-0000-0000-0000-000000000001 error="lookup adapter: user lookup: capacity"
+=== RUN   TestGetAdEnrichmentPolicy/invalid_response
+2026/11/02 20:06:47 WARN unable to get ad owner username reason=invalid_response ad_id=1 user_id=00000000-0000-0000-0000-000000000001 error="lookup adapter: user lookup: invalid_response"
+=== RUN   TestGetAdEnrichmentPolicy/unexpected
+2026/11/02 20:06:47 WARN unable to get ad owner username reason=unexpected ad_id=1 user_id=00000000-0000-0000-0000-000000000001 error="lookup adapter: user lookup: unexpected"
+=== RUN   TestGetAdEnrichmentPolicy/future_reason
+2026/11/02 20:06:47 WARN unable to get ad owner username reason=future_reason ad_id=1 user_id=00000000-0000-0000-0000-000000000001 error="lookup adapter: user lookup: future_reason"
+--- PASS: TestGetAdEnrichmentPolicy (0.01s)
+    --- PASS: TestGetAdEnrichmentPolicy/timeout (0.00s)
+    --- PASS: TestGetAdEnrichmentPolicy/unavailable (0.00s)
+    --- PASS: TestGetAdEnrichmentPolicy/not_found (0.00s)
+    --- PASS: TestGetAdEnrichmentPolicy/circuit_open (0.00s)
+    --- PASS: TestGetAdEnrichmentPolicy/capacity (0.00s)
+    --- PASS: TestGetAdEnrichmentPolicy/invalid_response (0.00s)
+    --- PASS: TestGetAdEnrichmentPolicy/unexpected (0.00s)
+    --- PASS: TestGetAdEnrichmentPolicy/future_reason (0.00s)
+=== RUN   TestImportAds
+=== RUN   TestImportAds/nominal
+=== RUN   TestImportAds/error_when_the_transaction_cannot_be_opened
+=== RUN   TestImportAds/rolls_back_and_stops_on_first_create_error
+=== RUN   TestImportAds/error_when_the_commit_fails
+--- PASS: TestImportAds (0.01s)
+    --- PASS: TestImportAds/nominal (0.00s)
+    --- PASS: TestImportAds/error_when_the_transaction_cannot_be_opened (0.00s)
+    --- PASS: TestImportAds/rolls_back_and_stops_on_first_create_error (0.00s)
+    --- PASS: TestImportAds/error_when_the_commit_fails (0.00s)
+=== RUN   TestImportAdsWithIdempotencyKey
+=== RUN   TestImportAdsWithIdempotencyKey/creates_the_ads_and_records_them_under_the_key
+=== RUN   TestImportAdsWithIdempotencyKey/replays_the_first_import_without_creating_the_ads_again
+=== RUN   TestImportAdsWithIdempotencyKey/error_when_the_key_was_used_with_other_ads
+=== RUN   TestImportAdsWithIdempotencyKey/error_when_the_key_cannot_be_reported
+=== RUN   TestImportAdsWithIdempotencyKey/error_when_the_first_import_cannot_be_read
+=== RUN   TestImportAdsWithIdempotencyKey/rolls_back_when_the_ads_cannot_be_recorded_under_the_key
+--- PASS: TestImportAdsWithIdempotencyKey (0.01s)
+    --- PASS: TestImportAdsWithIdempotencyKey/creates_the_ads_and_records_them_under_the_key (0.00s)
+    --- PASS: TestImportAdsWithIdempotencyKey/replays_the_first_import_without_creating_the_ads_again (0.00s)
+    --- PASS: TestImportAdsWithIdempotencyKey/error_when_the_key_was_used_with_other_ads (0.00s)
+    --- PASS: TestImportAdsWithIdempotencyKey/error_when_the_key_cannot_be_reported (0.00s)
+    --- PASS: TestImportAdsWithIdempotencyKey/error_when_the_first_import_cannot_be_read (0.00s)
+    --- PASS: TestImportAdsWithIdempotencyKey/rolls_back_when_the_ads_cannot_be_recorded_under_the_key (0.00s)
+=== RUN   TestImportValidationBeforeTransaction
+=== RUN   TestImportValidationBeforeTransaction/empty
+=== RUN   TestImportValidationBeforeTransaction/too_many
+=== RUN   TestImportValidationBeforeTransaction/missing_key
+=== RUN   TestImportValidationBeforeTransaction/space_in_key
+=== RUN   TestImportValidationBeforeTransaction/invalid_owner
+=== RUN   TestImportValidationBeforeTransaction/invalid_later_ad
+--- PASS: TestImportValidationBeforeTransaction (0.00s)
+    --- PASS: TestImportValidationBeforeTransaction/empty (0.00s)
+    --- PASS: TestImportValidationBeforeTransaction/too_many (0.00s)
+    --- PASS: TestImportValidationBeforeTransaction/missing_key (0.00s)
+    --- PASS: TestImportValidationBeforeTransaction/space_in_key (0.00s)
+    --- PASS: TestImportValidationBeforeTransaction/invalid_owner (0.00s)
+    --- PASS: TestImportValidationBeforeTransaction/invalid_later_ad (0.00s)
+=== RUN   TestListAds
+=== RUN   TestListAds/nominal
+=== RUN   TestListAds/nominal/returns_all_matching_ads
+=== RUN   TestListAds/nominal/returns_empty_slice_when_no_ads_match
+=== RUN   TestListAds/wraps_DAO_errors
+--- PASS: TestListAds (0.00s)
+    --- PASS: TestListAds/nominal (0.00s)
+        --- PASS: TestListAds/nominal/returns_all_matching_ads (0.00s)
+        --- PASS: TestListAds/nominal/returns_empty_slice_when_no_ads_match (0.00s)
+    --- PASS: TestListAds/wraps_DAO_errors (0.00s)
+PASS
+ok  	github.mpi-internal.com/leboncoin/backend-hiring-assessment/ads/internal/cmd/ads-api/usecase	1.095s
+=== RUN   TestCacheExpiryEvictionAndDisabled
+=== RUN   TestCacheExpiryEvictionAndDisabled/0
+=== RUN   TestCacheExpiryEvictionAndDisabled/1
+--- PASS: TestCacheExpiryEvictionAndDisabled (0.00s)
+    --- PASS: TestCacheExpiryEvictionAndDisabled/0 (0.00s)
+    --- PASS: TestCacheExpiryEvictionAndDisabled/1 (0.00s)
+=== RUN   TestBreakerRecoveryAndCategories
+--- PASS: TestBreakerRecoveryAndCategories (0.00s)
+=== RUN   TestCapacityCoalescingAndCancellation
+--- PASS: TestCapacityCoalescingAndCancellation (0.02s)
+=== RUN   TestHalfOpenAllowsOnlyOneProbe
+--- PASS: TestHalfOpenAllowsOnlyOneProbe (0.00s)
+=== RUN   TestLeaderCancellationReleasesState
+--- PASS: TestLeaderCancellationReleasesState (0.00s)
+=== RUN   TestResponseClassification
+=== RUN   TestResponseClassification/success
+=== RUN   TestResponseClassification/missing
+=== RUN   TestResponseClassification/opaque_503
+=== RUN   TestResponseClassification/opaque_401
+=== RUN   TestResponseClassification/bad_JSON
+=== RUN   TestResponseClassification/wrong_type
+=== RUN   TestResponseClassification/wrong_owner
+=== RUN   TestResponseClassification/empty_name
+--- PASS: TestResponseClassification (0.03s)
+    --- PASS: TestResponseClassification/success (0.01s)
+    --- PASS: TestResponseClassification/missing (0.00s)
+    --- PASS: TestResponseClassification/opaque_503 (0.00s)
+    --- PASS: TestResponseClassification/opaque_401 (0.00s)
+    --- PASS: TestResponseClassification/bad_JSON (0.00s)
+    --- PASS: TestResponseClassification/wrong_type (0.00s)
+    --- PASS: TestResponseClassification/wrong_owner (0.00s)
+    --- PASS: TestResponseClassification/empty_name (0.00s)
+=== RUN   TestTimeoutVersusParentDeadline
+--- PASS: TestTimeoutVersusParentDeadline (0.02s)
+=== RUN   TestOldCompletionCannotCloseNewCircuit
+--- PASS: TestOldCompletionCannotCloseNewCircuit (0.00s)
+=== RUN   TestExpiredCacheDoesNotHideDeletionOrFailure
+--- PASS: TestExpiredCacheDoesNotHideDeletionOrFailure (0.00s)
+=== RUN   TestInvalidBaseURLIsNotTransient
+--- PASS: TestInvalidBaseURLIsNotTransient (0.00s)
+=== RUN   TestProbeCancellationDoesNotWedgeCircuit
+--- PASS: TestProbeCancellationDoesNotWedgeCircuit (0.00s)
+=== RUN   TestCachedUsernameRefreshesAfterRename
+--- PASS: TestCachedUsernameRefreshesAfterRename (0.00s)
+=== RUN   TestGetUserByID
+=== RUN   TestGetUserByID/nominal
+=== RUN   TestGetUserByID/error_user_not_found
+--- PASS: TestGetUserByID (0.00s)
+    --- PASS: TestGetUserByID/nominal (0.00s)
+    --- PASS: TestGetUserByID/error_user_not_found (0.00s)
+=== RUN   TestClientTimeout
+--- PASS: TestClientTimeout (0.02s)
+PASS
+ok  	github.mpi-internal.com/leboncoin/backend-hiring-assessment/ads/internal/cmd/ads-api/userclient	1.134s
+=== RUN   TestWrappedFailure
+--- PASS: TestWrappedFailure (0.00s)
+=== RUN   TestFailureStructuredDiagnostics
+=== RUN   TestFailureStructuredDiagnostics/upstream_status
+=== RUN   TestFailureStructuredDiagnostics/request_URL
+=== RUN   TestFailureStructuredDiagnostics/wrapped_request_URL
+=== RUN   TestFailureStructuredDiagnostics/no_cause
+--- PASS: TestFailureStructuredDiagnostics (0.00s)
+    --- PASS: TestFailureStructuredDiagnostics/upstream_status (0.00s)
+    --- PASS: TestFailureStructuredDiagnostics/request_URL (0.00s)
+    --- PASS: TestFailureStructuredDiagnostics/wrapped_request_URL (0.00s)
+    --- PASS: TestFailureStructuredDiagnostics/no_cause (0.00s)
+PASS
+ok  	github.mpi-internal.com/leboncoin/backend-hiring-assessment/ads/internal/cmd/ads-api/userlookup	1.042s
+?   	github.mpi-internal.com/leboncoin/backend-hiring-assessment/common/httpresponse	[no test files]
+=== RUN   TestGracefulShutdownDrainsRequest
+2026/11/02 20:06:47 INFO listening address=127.0.0.1:36017
+2026/11/02 20:06:47 INFO shutting down
+--- PASS: TestGracefulShutdownDrainsRequest (0.01s)
+=== RUN   TestRunListenFailure
+--- PASS: TestRunListenFailure (0.00s)
+PASS
+ok  	github.mpi-internal.com/leboncoin/backend-hiring-assessment/common/httpserver	1.052s
+?   	github.mpi-internal.com/leboncoin/backend-hiring-assessment/common/middleware	[no test files]
+?   	github.mpi-internal.com/leboncoin/backend-hiring-assessment/common/model	[no test files]
+?   	github.mpi-internal.com/leboncoin/backend-hiring-assessment/users/internal/cmd/users-api	[no test files]
+?   	github.mpi-internal.com/leboncoin/backend-hiring-assessment/users/pkg	[no test files]
+=== RUN   TestClientListUsers
+=== RUN   TestClientListUsers/returns_all_users_on_success
+=== RUN   TestClientListUsers/returns_empty_slice_when_server_returns_empty_array
+=== RUN   TestClientListUsers/returns_error_when_server_responds_with_non-200
+--- PASS: TestClientListUsers (0.02s)
+    --- PASS: TestClientListUsers/returns_all_users_on_success (0.01s)
+    --- PASS: TestClientListUsers/returns_empty_slice_when_server_returns_empty_array (0.00s)
+    --- PASS: TestClientListUsers/returns_error_when_server_responds_with_non-200 (0.00s)
+=== RUN   TestClientGetUserByID
+=== RUN   TestClientGetUserByID/returns_the_user_on_success
+=== RUN   TestClientGetUserByID/returns_ErrNotFound_when_server_responds_with_404
+=== RUN   TestClientGetUserByID/returns_error_when_server_responds_with_non-200
+--- PASS: TestClientGetUserByID (0.01s)
+    --- PASS: TestClientGetUserByID/returns_the_user_on_success (0.00s)
+    --- PASS: TestClientGetUserByID/returns_ErrNotFound_when_server_responds_with_404 (0.00s)
+    --- PASS: TestClientGetUserByID/returns_error_when_server_responds_with_non-200 (0.00s)
+PASS
+ok  	github.mpi-internal.com/leboncoin/backend-hiring-assessment/users/pkg/api	1.057s
+=== RUN   TestMockListUsers
+=== RUN   TestMockListUsers/returns_configured_users
+=== RUN   TestMockListUsers/returns_configured_error
+--- PASS: TestMockListUsers (0.00s)
+    --- PASS: TestMockListUsers/returns_configured_users (0.00s)
+    --- PASS: TestMockListUsers/returns_configured_error (0.00s)
+=== RUN   TestMockGetUserByID
+=== RUN   TestMockGetUserByID/returns_configured_user
+=== RUN   TestMockGetUserByID/returns_configured_error
+--- PASS: TestMockGetUserByID (0.00s)
+    --- PASS: TestMockGetUserByID/returns_configured_user (0.00s)
+    --- PASS: TestMockGetUserByID/returns_configured_error (0.00s)
+PASS
+ok  	github.mpi-internal.com/leboncoin/backend-hiring-assessment/users/pkg/mock	1.030s
+Checking known vulnerabilities
+No vulnerabilities found.
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 391B 0.0s done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/golang:1.26.10-alpine
+#2 ...
+
+#3 [auth] library/golang:pull token for registry-1.docker.io
+#3 DONE 0.0s
+
+#4 [auth] library/alpine:pull token for registry-1.docker.io
+#4 DONE 0.0s
+
+#5 [internal] load metadata for docker.io/library/alpine:3.23
+#5 ...
+
+#2 [internal] load metadata for docker.io/library/golang:1.26.10-alpine
+#2 DONE 0.8s
+
+#5 [internal] load metadata for docker.io/library/alpine:3.23
+#5 DONE 0.8s
+
+#6 [internal] load .dockerignore
+#6 transferring context: 90B done
+#6 DONE 0.0s
+
+#7 [internal] load build context
+#7 DONE 0.0s
+
+#8 [stage-1 1/3] FROM docker.io/library/alpine:3.23@sha256:ff7f0c727dd796aa36787bfcd9a64bf35a6ce72a73451b3359fde849b6703d63
+#8 resolve docker.io/library/alpine:3.23@sha256:ff7f0c727dd796aa36787bfcd9a64bf35a6ce72a73451b3359fde849b6703d63 0.0s done
+#8 DONE 0.0s
+
+#9 [build 1/6] FROM docker.io/library/golang:1.26.10-alpine@sha256:a2012b4a1d1f9f7e9f44e0d39b805a901e856b1dd80b4e6ee4338db547050308
+#9 resolve docker.io/library/golang:1.26.10-alpine@sha256:a2012b4a1d1f9f7e9f44e0d39b805a901e856b1dd80b4e6ee4338db547050308 0.0s done
+#9 DONE 0.0s
+
+#7 [internal] load build context
+#7 transferring context: 45.25kB 0.0s done
+#7 DONE 0.0s
+
+#10 [build 3/6] COPY go.mod go.sum ./
+#10 CACHED
+
+#11 [build 2/6] WORKDIR /src
+#11 CACHED
+
+#12 [build 4/6] RUN go mod download
+#12 CACHED
+
+#13 [build 5/6] COPY . .
+#13 DONE 0.1s
+
+#14 [build 6/6] RUN CGO_ENABLED=0 go build -trimpath -o /service ./ads/internal/cmd/ads-api
+#14 DONE 27.2s
+
+#15 [stage-1 2/3] RUN apk add --no-cache ca-certificates && adduser -D -u 10001 app
+#15 CACHED
+
+#16 [stage-1 3/3] COPY --from=build /service /service
+#16 DONE 2.2s
+
+#17 exporting to image
+#17 exporting layers
+#17 exporting layers 2.4s done
+#17 exporting manifest sha256:e2e4535e9d17e1007f4f5492b1eb4b660966aa849876d1f0a56e824eef2ea5e7
+#17 exporting manifest sha256:e2e4535e9d17e1007f4f5492b1eb4b660966aa849876d1f0a56e824eef2ea5e7 0.2s done
+#17 exporting config sha256:201458e630090b9bcbf9003406a5b1d5415251a6d85f0b8bdddb7bb793777ba3
+#17 exporting config sha256:201458e630090b9bcbf9003406a5b1d5415251a6d85f0b8bdddb7bb793777ba3 0.1s done
+#17 exporting attestation manifest sha256:0c579dec6c2c90c9098c60a7a0bb2991765c535eaebf48dea93239a5bbcb636f
+#17 exporting attestation manifest sha256:0c579dec6c2c90c9098c60a7a0bb2991765c535eaebf48dea93239a5bbcb636f 0.2s done
+#17 exporting manifest list sha256:171e35573172777b18ebdc03769315e2dd79f6f45a17e68a0a53d493c047608a
+#17 exporting manifest list sha256:171e35573172777b18ebdc03769315e2dd79f6f45a17e68a0a53d493c047608a 0.1s done
+#17 naming to docker.io/library/ads-api:verify
+#17 naming to docker.io/library/ads-api:verify 0.0s done
+#17 unpacking to docker.io/library/ads-api:verify
+#17 unpacking to docker.io/library/ads-api:verify 0.3s done
+#17 DONE 3.6s
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/ja730kh3e1ga4adniu1n354nr
+Verification passed.

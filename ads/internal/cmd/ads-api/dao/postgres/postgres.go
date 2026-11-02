@@ -145,7 +145,7 @@ func (d *DAO) SearchAds(ctx context.Context, req adsdao.SearchAdsRequest) ([]dom
 	if err != nil {
 		return nil, fmt.Errorf("unable to search ads: %w", err)
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var ads []domain.Ad
 	for rows.Next() {
 		var ad domain.Ad

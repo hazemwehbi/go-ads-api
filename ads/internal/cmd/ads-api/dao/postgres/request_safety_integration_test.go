@@ -22,7 +22,7 @@ func TestIntegrationHTTPRejectsAmbiguousInput(t *testing.T) {
 		resp, err := client.Get(server.URL + "/ads?" + query)
 		require.NoError(t, err)
 		require.Equal(t, 400, resp.StatusCode, query)
-		resp.Body.Close()
+		require.NoError(t, resp.Body.Close())
 	}
 	for _, keys := range [][]string{{"first", "second"}, {"same", "same"}} {
 		r, err := http.NewRequest("POST", server.URL+"/ads/import", strings.NewReader(euroBatch))
@@ -35,7 +35,7 @@ func TestIntegrationHTTPRejectsAmbiguousInput(t *testing.T) {
 		resp, err := client.Do(r)
 		require.NoError(t, err)
 		require.Equal(t, 400, resp.StatusCode)
-		resp.Body.Close()
+		require.NoError(t, resp.Body.Close())
 		checkImportCounts(t, d, 0, 0)
 	}
 	// Rejected headers have not claimed either key; a corrected request can succeed.

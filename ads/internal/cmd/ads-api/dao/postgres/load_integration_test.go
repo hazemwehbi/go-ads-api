@@ -119,9 +119,9 @@ func TestLimitedLoad(t *testing.T) {
 						} else {
 							sample.Status = resp.StatusCode
 							raw, e := io.ReadAll(resp.Body)
-							resp.Body.Close()
+							closeErr := resp.Body.Close()
 							var obj map[string]json.RawMessage
-							sample.Invalid = e != nil || json.Unmarshal(raw, &obj) != nil
+							sample.Invalid = closeErr != nil || e != nil || json.Unmarshal(raw, &obj) != nil
 							if !sample.Invalid {
 								switch op {
 								case "detail":

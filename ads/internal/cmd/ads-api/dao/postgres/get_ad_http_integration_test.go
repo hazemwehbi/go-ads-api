@@ -62,7 +62,7 @@ func TestIntegrationHTTPGetAdSelectsRequestedRecord(t *testing.T) {
 		t.Run(f.request.Title, func(t *testing.T) {
 			resp, err := client.Get(fmt.Sprintf("%s/ads/%d", server.URL, f.id))
 			require.NoError(t, err)
-			defer resp.Body.Close()
+			defer func() { require.NoError(t, resp.Body.Close()) }()
 			require.Equal(t, http.StatusOK, resp.StatusCode)
 			require.Equal(t, "application/json", resp.Header.Get("Content-Type"))
 			var body struct {

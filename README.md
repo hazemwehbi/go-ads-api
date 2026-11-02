@@ -145,7 +145,7 @@ From this checkout in PowerShell:
 ./scripts/verify.ps1
 ```
 
-The command checks formatting, runs `go vet`, unit and real PostgreSQL/HTTP integration tests with race detection, and scans known vulnerabilities. Docker must be running; host Go and a C compiler are not required. The source is mounted read-only and each database test owns a temporary schema in a dedicated `_test` database.
+The command runs the pinned linter, checks formatting, runs `go vet`, unit and real PostgreSQL/HTTP integration tests with race detection, scans known vulnerabilities and builds the ads API Docker image. Docker must be running; host Go and a C compiler are not required. The source is mounted read-only and each database test owns a temporary schema in a dedicated `_test` database.
 
 The verification and optional load scripts retain the source copy's `backend-go-v2` test project/network names. They target the test service rather than the application database. Do not run these scripts concurrently from different project copies or use the disposable test service to store application data.
 
@@ -156,6 +156,26 @@ go test -count=1 ./...
 ```
 
 This excludes integration tests and race detection. See [TESTING.md](TESTING.md) for integration setup, parser fuzz checks and outage scenarios. The optional `./scripts/load-test.ps1` runs a short local mixed workload; [its report](validation/LOAD_TEST.md) explains the limits. Saved logs describe their recorded checkout and run; rerun checks after code changes. This checkout was also verified on 2026-11-02 against a separate disposable PostgreSQL container: formatting, vet, unit/integration tests with race detection and vulnerability scanning passed.
+
+## Lint and CI checks
+
+Run lint alone from PowerShell:
+
+```powershell
+./scripts/lint.ps1
+```
+
+This uses `golangci-lint` **v2.15.0** in Docker and the committed `.golangci.yml`, matching CI. It enables `errcheck`, `govet`, `ineffassign`, `staticcheck` and `unused`. Integration and load-test files are included in analysis; the linter does not execute tests or need PostgreSQL. The lint scope is `ads` and `common`, which are the assessment's editable packages. The original `users` packages still compile and run in the general test suite.
+
+For an installed copy of the same linter version:
+
+```sh
+golangci-lint run --config=.golangci.yml ./ads/... ./common/...
+```
+
+The full `./scripts/verify.ps1` command includes lint and image building as well as the existing tests and security scan. `.github/workflows/test.yml` runs lint and builds the Docker image on pushes and pull requests. Findings or a failed image build fail verification. Lint complements behavioral tests; it does not prove correctness.
+
+These changes add development checks. They do not change API behavior, enable automatic deployment or configure GitHub branch protection.
 
 ## Production readiness and scaling roadmap
 

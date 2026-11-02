@@ -45,7 +45,7 @@ func TestHandlerDeleteAd(t *testing.T) {
 		defer srv.Close()
 
 		resp := deleteRequest(t, srv.URL+"/ads/42", "00000000-0000-0000-0000-000000000001")
-		defer resp.Body.Close()
+		defer func() { require.NoError(t, resp.Body.Close()) }()
 
 		assert.Equal(t, http.StatusNoContent, resp.StatusCode)
 	})
@@ -59,7 +59,7 @@ func TestHandlerDeleteAd(t *testing.T) {
 		defer srv.Close()
 
 		resp := deleteRequest(t, srv.URL+"/ads/42", "00000000-0000-0000-0000-000000000042")
-		defer resp.Body.Close()
+		defer func() { require.NoError(t, resp.Body.Close()) }()
 
 		require.Equal(t, http.StatusNoContent, resp.StatusCode)
 		assert.Equal(t, domain.AdID(42), received.ID)
@@ -74,7 +74,7 @@ func TestHandlerDeleteAd(t *testing.T) {
 		defer srv.Close()
 
 		resp := deleteRequest(t, srv.URL+"/ads/42", "")
-		defer resp.Body.Close()
+		defer func() { require.NoError(t, resp.Body.Close()) }()
 
 		assert.Equal(t, http.StatusUnauthorized, resp.StatusCode)
 	})
@@ -87,7 +87,7 @@ func TestHandlerDeleteAd(t *testing.T) {
 		defer srv.Close()
 
 		resp := deleteRequest(t, srv.URL+"/ads/not-a-number", "00000000-0000-0000-0000-000000000001")
-		defer resp.Body.Close()
+		defer func() { require.NoError(t, resp.Body.Close()) }()
 
 		assert.Equal(t, http.StatusBadRequest, resp.StatusCode)
 	})
@@ -99,7 +99,7 @@ func TestHandlerDeleteAd(t *testing.T) {
 		defer srv.Close()
 
 		resp := deleteRequest(t, srv.URL+"/ads/99", "00000000-0000-0000-0000-000000000001")
-		defer resp.Body.Close()
+		defer func() { require.NoError(t, resp.Body.Close()) }()
 
 		assert.Equal(t, http.StatusNotFound, resp.StatusCode)
 	})
@@ -111,7 +111,7 @@ func TestHandlerDeleteAd(t *testing.T) {
 		defer srv.Close()
 
 		resp := deleteRequest(t, srv.URL+"/ads/1", "00000000-0000-0000-0000-000000000001")
-		defer resp.Body.Close()
+		defer func() { require.NoError(t, resp.Body.Close()) }()
 
 		assert.Equal(t, http.StatusInternalServerError, resp.StatusCode)
 	})

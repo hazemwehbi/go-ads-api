@@ -56,7 +56,7 @@ func TestIntegrationHTTPUserEnrichment(t *testing.T) {
 			mode.Store(tc.mode)
 			resp, e := server.Client().Get(fmt.Sprintf("%s/ads/%d", server.URL, id))
 			require.NoError(t, e)
-			defer resp.Body.Close()
+			defer func() { require.NoError(t, resp.Body.Close()) }()
 			require.Equal(t, tc.status, resp.StatusCode)
 			var body map[string]json.RawMessage
 			require.NoError(t, json.NewDecoder(resp.Body).Decode(&body))
@@ -76,7 +76,7 @@ func TestIntegrationHTTPUserEnrichment(t *testing.T) {
 	before := calls.Load()
 	resp, err := server.Client().Get(server.URL + "/ads/9223372036854775807")
 	require.NoError(t, err)
-	resp.Body.Close()
+	require.NoError(t, resp.Body.Close())
 	require.Equal(t, 404, resp.StatusCode)
 	require.Equal(t, before, calls.Load())
 }

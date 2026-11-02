@@ -29,7 +29,7 @@ func TestGracefulShutdownDrainsRequest(t *testing.T) {
 	})}
 	done := make(chan error, 1)
 	go func() { done <- serve(ctx, server, listener) }()
-	defer server.Close()
+	defer func() { _ = server.Close() }()
 	shutdown := make(chan struct{})
 	server.RegisterOnShutdown(func() { close(shutdown) })
 	response := make(chan string, 1)
@@ -40,7 +40,7 @@ func TestGracefulShutdownDrainsRequest(t *testing.T) {
 			response <- e.Error()
 			return
 		}
-		defer resp.Body.Close()
+		defer func() { _ = resp.Body.Close() }()
 		b, e := io.ReadAll(resp.Body)
 		if e != nil {
 			response <- e.Error()
@@ -81,6 +81,6 @@ func TestGracefulShutdownDrainsRequest(t *testing.T) {
 func TestRunListenFailure(t *testing.T) {
 	l, err := net.Listen("tcp", "127.0.0.1:0")
 	require.NoError(t, err)
-	defer l.Close()
+	defer func() { _ = l.Close() }()
 	require.Error(t, Run(context.Background(), l.Addr().String(), http.NewServeMux()))
 }

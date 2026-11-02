@@ -12,6 +12,7 @@ $projectRoot = Split-Path -Parent $PSScriptRoot
 Push-Location $projectRoot
 try {
     Get-Command docker -ErrorAction Stop | Out-Null
+    & (Join-Path $PSScriptRoot 'lint.ps1')
     Invoke-Docker -DockerArgs @('compose', '--profile', 'test', 'up', '-d', '--wait', 'test-database')
     # Pass a file path rather than shell source: Windows PowerShell 5.1 strips
     # embedded quotes from native executable arguments passed through sh -c.
@@ -24,6 +25,7 @@ try {
         '-e', 'TEST_DATABASE_URL=postgres://ads:ads@test-database:5432/ads_test?sslmode=disable',
         'golang:1.26.10', 'sh', '/src/scripts/verify.sh'
     )
+    Invoke-Docker -DockerArgs @('build', '--tag', 'ads-api:verify', '--file', 'ads/internal/cmd/ads-api/Dockerfile', '.')
     Write-Host 'Verification passed.'
 } finally {
     Pop-Location

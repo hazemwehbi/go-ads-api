@@ -61,7 +61,7 @@ func TestHandlerImportAds(t *testing.T) {
 		})
 		defer srv.Close()
 		resp := postImport(t, srv.URL+"/ads/import", validBody, "key-1")
-		defer resp.Body.Close()
+		defer func() { require.NoError(t, resp.Body.Close()) }()
 		require.Equal(t, 201, resp.StatusCode)
 		var got importAdsResponse
 		require.NoError(t, json.NewDecoder(resp.Body).Decode(&got))
@@ -72,7 +72,7 @@ func TestHandlerImportAds(t *testing.T) {
 			srv := newImportAdsServer(failImportAds(t))
 			defer srv.Close()
 			resp := postImport(t, srv.URL+"/ads/import", validBody, key)
-			defer resp.Body.Close()
+			defer func() { require.NoError(t, resp.Body.Close()) }()
 			assert.Equal(t, 400, resp.StatusCode)
 		})
 	}
@@ -88,7 +88,7 @@ func TestHandlerImportAds(t *testing.T) {
 			srv := newImportAdsServer(func(context.Context, usecase.ImportAdsRequest) ([]domain.AdID, error) { return nil, tc.err })
 			defer srv.Close()
 			resp := postImport(t, srv.URL+"/ads/import", validBody, "key-1")
-			defer resp.Body.Close()
+			defer func() { require.NoError(t, resp.Body.Close()) }()
 			assert.Equal(t, tc.status, resp.StatusCode)
 		})
 	}
@@ -96,7 +96,7 @@ func TestHandlerImportAds(t *testing.T) {
 		srv := newImportAdsServer(failImportAds(t))
 		defer srv.Close()
 		resp := postImport(t, srv.URL+"/ads/import", json.RawMessage(`{"ads":[{"price":1},{"price":1.234}]}`), "key-1")
-		defer resp.Body.Close()
+		defer func() { require.NoError(t, resp.Body.Close()) }()
 		assert.Equal(t, 400, resp.StatusCode)
 	})
 }

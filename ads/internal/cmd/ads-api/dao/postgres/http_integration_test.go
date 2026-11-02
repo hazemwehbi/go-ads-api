@@ -34,7 +34,7 @@ func TestIntegrationHTTPCreateRetryAndQuota(t *testing.T) {
 		}
 		resp, err := client.Do(req)
 		require.NoError(t, err)
-		defer resp.Body.Close()
+		defer func() { require.NoError(t, resp.Body.Close()) }()
 		require.Equal(t, "application/json", resp.Header.Get("Content-Type"))
 		var result map[string]json.RawMessage
 		require.NoError(t, json.NewDecoder(resp.Body).Decode(&result))
@@ -83,7 +83,7 @@ func TestIntegrationHTTPCreateRetryAndQuota(t *testing.T) {
 	deleted, err := client.Do(deleteRequest)
 	require.NoError(t, err)
 	deletedBody, err := io.ReadAll(deleted.Body)
-	deleted.Body.Close()
+	require.NoError(t, deleted.Body.Close())
 	require.NoError(t, err)
 	require.Equal(t, http.StatusNoContent, deleted.StatusCode)
 	require.Empty(t, deletedBody)

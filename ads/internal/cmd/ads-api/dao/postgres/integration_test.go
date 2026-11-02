@@ -79,7 +79,7 @@ func TestIntegrationQuotaConcurrentInstances(t *testing.T) {
 	d, dsn := integrationDAO(t)
 	d2, err := New(context.Background(), dsn)
 	require.NoError(t, err)
-	defer d2.Close()
+	defer func() { require.NoError(t, d2.Close()) }()
 	funcs := []usecase.CreateAdFunc{usecase.NewCreateAdFunc(d), usecase.NewCreateAdFunc(d2)}
 	type result struct {
 		id  domain.AdID
@@ -142,7 +142,7 @@ func TestIntegrationImportConcurrentReplayAndOwnership(t *testing.T) {
 	d, dsn := integrationDAO(t)
 	d2, err := New(context.Background(), dsn)
 	require.NoError(t, err)
-	defer d2.Close()
+	defer func() { require.NoError(t, d2.Close()) }()
 	funcs := []usecase.ImportAdsFunc{usecase.NewImportAdsFunc(d), usecase.NewImportAdsFunc(d2)}
 	type result struct {
 		ids []domain.AdID
@@ -224,7 +224,7 @@ func TestIntegrationCancellationReleasesTransactions(t *testing.T) {
 	ctx := context.Background()
 	tx, err := d.Begin(ctx)
 	require.NoError(t, err)
-	defer tx.Rollback()
+	defer func(tx adsdao.Tx) { require.NoError(t, tx.Rollback()) }(tx)
 	require.NoError(t, tx.LockOwnerPublications(ctx, testOwner))
 	blocked, cancel := context.WithTimeout(ctx, 100*time.Millisecond)
 	defer cancel()
@@ -235,7 +235,7 @@ func TestIntegrationCancellationReleasesTransactions(t *testing.T) {
 	require.NoError(t, err)
 	tx, err = d.Begin(ctx)
 	require.NoError(t, err)
-	defer tx.Rollback()
+	defer func(tx adsdao.Tx) { require.NoError(t, tx.Rollback()) }(tx)
 	_, err = tx.ClaimRequest(ctx, adsdao.RequestKey{OwnerID: testOwner, IdempotencyKey: "waiting"}, "uncommitted")
 	require.NoError(t, err)
 	blocked2, cancel2 := context.WithTimeout(ctx, 100*time.Millisecond)
@@ -325,7 +325,7 @@ func TestIntegrationCreateIdempotency(t *testing.T) {
 	ctx := context.Background()
 	d2, err := New(ctx, dsn)
 	require.NoError(t, err)
-	defer d2.Close()
+	defer func() { require.NoError(t, d2.Close()) }()
 	create := usecase.NewCreateAdFunc(d)
 	// Leave only one slot: all concurrent retries must still succeed.
 	for i := 0; i < 4; i++ {
@@ -429,7 +429,7 @@ func TestIntegrationCreateKeyCancellation(t *testing.T) {
 	ctx := context.Background()
 	tx, err := d.Begin(ctx)
 	require.NoError(t, err)
-	defer tx.Rollback()
+	defer func(tx adsdao.Tx) { require.NoError(t, tx.Rollback()) }(tx)
 	req := adRequest(testOwner)
 	req.IdempotencyKey = "held"
 	key := adsdao.RequestKey{OwnerID: testOwner, IdempotencyKey: req.IdempotencyKey, Operation: "create"}

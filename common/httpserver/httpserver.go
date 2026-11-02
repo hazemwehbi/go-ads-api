@@ -36,7 +36,7 @@ func Run(ctx context.Context, addr string, handler http.Handler) error {
 
 // serve accepts a listener so shutdown can be tested without reserving a fixed port.
 func serve(ctx context.Context, server *http.Server, listener net.Listener) error {
-	defer listener.Close()
+	defer func() { _ = listener.Close() }()
 	serverErrors := make(chan error, 1)
 	go func() {
 		slog.Info("listening", "address", listener.Addr().String())

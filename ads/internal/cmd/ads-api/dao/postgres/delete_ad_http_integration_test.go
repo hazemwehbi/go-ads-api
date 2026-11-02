@@ -65,7 +65,7 @@ func TestIntegrationHTTPDeleteOwnershipAndIsolation(t *testing.T) {
 		}
 		resp, e := client.Do(req)
 		require.NoError(t, e)
-		defer resp.Body.Close()
+		defer func() { require.NoError(t, resp.Body.Close()) }()
 		body, e := io.ReadAll(resp.Body)
 		require.NoError(t, e)
 		require.Equal(t, want, resp.StatusCode, string(body))

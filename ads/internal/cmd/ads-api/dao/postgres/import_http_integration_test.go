@@ -33,7 +33,7 @@ func importResponse(t *testing.T, client *http.Client, url, body, key string, st
 	t.Helper()
 	resp, err := sendImport(t, client, url, body, key)
 	require.NoError(t, err)
-	defer resp.Body.Close()
+	defer func() { require.NoError(t, resp.Body.Close()) }()
 	raw, err := io.ReadAll(resp.Body)
 	require.NoError(t, err)
 	require.Equal(t, status, resp.StatusCode, string(raw))
@@ -97,7 +97,7 @@ func TestIntegrationHTTPImportLostResponse(t *testing.T) {
 	checkImportCounts(t, d, 0, 0)
 	resp, err := sendImport(t, client, server.URL, euroBatch, "batch-1")
 	if resp != nil {
-		resp.Body.Close()
+		require.NoError(t, resp.Body.Close())
 	}
 	require.Error(t, err, "client must observe a transport failure")
 	var original delivery

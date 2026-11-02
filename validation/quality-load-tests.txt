@@ -1,0 +1,21 @@
+time="2026-11-02T21:07:42+01:00" level=warning msg="Found orphan containers (backend-go-v2-migrate-1) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+ Container backend-go-v2-test-database-1 Running 
+ Container backend-go-v2-test-database-1 Waiting 
+ Container backend-go-v2-test-database-1 Healthy 
+=== RUN   TestLimitedLoad
+=== RUN   TestLimitedLoad/healthy
+    load_integration_test.go:183: LOAD_RESULT {"counts":{"ad_imports":100,"ad_publications":100,"ads":10100},"db_wait_count":2644,"db_wait_total_ms":3079.512,"invalid":0,"max_publications_per_owner":5,"null_usernames":0,"requests":3000,"rps":5090.966872457463,"scenario":"healthy","seconds":0.589279026,"statuses":{"200":2700,"201":100,"429":200},"timings":{"create_201":{"Count":100,"P50":8.045,"P95":30.142,"P99":57.902,"Max":64.869},"create_429":{"Count":200,"P50":5.549,"P95":12.861,"P99":18.944,"Max":32.059},"detail_200":{"Count":2400,"P50":2.165,"P95":7.593,"P99":23.289,"Max":39.98},"list_200":{"Count":300,"P50":3.847,"P95":10.91,"P99":21.669,"Max":40.989}},"upstream_calls":160,"upstream_max_active":2,"workers":20}
+=== RUN   TestLimitedLoad/slow_users
+    load_integration_test.go:183: LOAD_RESULT {"counts":{"ad_imports":100,"ad_publications":100,"ads":10100},"db_wait_count":2610,"db_wait_total_ms":6859.594,"invalid":0,"max_publications_per_owner":5,"null_usernames":2400,"requests":3000,"rps":4390.824849262031,"scenario":"slow_users","seconds":0.683242922,"statuses":{"200":2700,"201":100,"429":200},"timings":{"create_201":{"Count":100,"P50":7.491,"P95":30.766,"P99":40.529,"Max":42.724},"create_429":{"Count":200,"P50":5.516,"P95":13.258,"P99":17.768,"Max":33.815},"detail_200":{"Count":2400,"P50":2.722,"P95":19.437,"P99":200.091,"Max":283.696},"list_200":{"Count":300,"P50":4.035,"P95":12.92,"P99":32.058,"Max":39.014}},"upstream_calls":24,"upstream_max_active":20,"workers":40}
+=== RUN   TestLimitedLoad/slow_database_writes
+    load_integration_test.go:183: LOAD_RESULT {"counts":{"ad_imports":100,"ad_publications":100,"ads":10100},"db_wait_count":2990,"db_wait_total_ms":26801.166,"invalid":0,"max_publications_per_owner":5,"null_usernames":0,"requests":3000,"rps":3097.110324730252,"scenario":"slow_database_writes","seconds":0.968644861,"statuses":{"200":2700,"201":100,"429":200},"timings":{"create_201":{"Count":100,"P50":74.124,"P95":122.297,"P99":132.87,"Max":144.776},"create_429":{"Count":200,"P50":5.778,"P95":13.183,"P99":24.658,"Max":34.608},"detail_200":{"Count":2400,"P50":4.329,"P95":51.609,"P99":76.024,"Max":181.758},"list_200":{"Count":300,"P50":5.87,"P95":46.249,"P99":78.472,"Max":116.366}},"upstream_calls":160,"upstream_max_active":2,"workers":40}
+=== RUN   TestLimitedLoad/healthy_again
+    load_integration_test.go:183: LOAD_RESULT {"counts":{"ad_imports":100,"ad_publications":100,"ads":10100},"db_wait_count":2644,"db_wait_total_ms":2832.859,"invalid":0,"max_publications_per_owner":5,"null_usernames":0,"requests":3000,"rps":5566.570045236361,"scenario":"healthy_again","seconds":0.53893151,"statuses":{"200":2700,"201":100,"429":200},"timings":{"create_201":{"Count":100,"P50":7.48,"P95":25.798,"P99":35.157,"Max":52.304},"create_429":{"Count":200,"P50":4.593,"P95":12.072,"P99":32.468,"Max":37.751},"detail_200":{"Count":2400,"P50":1.968,"P95":6.788,"P99":25.58,"Max":37.948},"list_200":{"Count":300,"P50":3.648,"P95":9.122,"P99":25.835,"Max":35.089}},"upstream_calls":160,"upstream_max_active":1,"workers":20}
+--- PASS: TestLimitedLoad (4.56s)
+    --- PASS: TestLimitedLoad/healthy (1.20s)
+    --- PASS: TestLimitedLoad/slow_users (1.12s)
+    --- PASS: TestLimitedLoad/slow_database_writes (1.32s)
+    --- PASS: TestLimitedLoad/healthy_again (0.92s)
+PASS
+ok  	github.mpi-internal.com/leboncoin/backend-hiring-assessment/ads/internal/cmd/ads-api/dao/postgres	4.565s
+Limited load test passed.
