@@ -1,0 +1,13 @@
+fuzz: elapsed: 0s, gathering baseline coverage: 0/7 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 7/7 completed, now fuzzing with 2 workers
+fuzz: elapsed: 3s, execs: 12361 (4119/sec), new interesting: 52 (total: 59)
+fuzz: elapsed: 5s, execs: 27175 (7146/sec), new interesting: 73 (total: 80)
+PASS
+ok  	github.mpi-internal.com/leboncoin/backend-hiring-assessment/ads/internal/cmd/ads-api/http	5.108s
+fuzz: elapsed: 0s, gathering baseline coverage: 0/6 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 6/6 completed, now fuzzing with 2 workers
+fuzz: elapsed: 3s, execs: 16183 (5393/sec), new interesting: 47 (total: 53)
+fuzz: elapsed: 6s, execs: 17521 (446/sec), new interesting: 50 (total: 56)
+fuzz: elapsed: 6s, execs: 17521 (0/sec), new interesting: 50 (total: 56)
+PASS
+ok  	github.mpi-internal.com/leboncoin/backend-hiring-assessment/ads/internal/cmd/ads-api/http	6.036s

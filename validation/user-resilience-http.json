@@ -1,0 +1,11 @@
+{
+  "checks": [
+    "healthy user name returned",
+    "expired cache and actual connection outage return 200 with explicit null",
+    "circuit_open observed after consecutive connection failures",
+    "half-open probe restores real username after recovery",
+    "original environment defaults restored and services healthy"
+  ],
+  "demo_cache_ttl": "3s",
+  "restored": true
+}

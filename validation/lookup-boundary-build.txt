@@ -1,0 +1,81 @@
+ Image backend-go-v2-ads-api Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.05kB done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 391B 0.0s done
+#2 DONE 0.0s
+
+#3 [auth] library/golang:pull token for registry-1.docker.io
+#3 DONE 0.0s
+
+#4 [auth] library/alpine:pull token for registry-1.docker.io
+#4 DONE 0.0s
+
+#5 [internal] load metadata for docker.io/library/alpine:3.23
+#5 ...
+
+#6 [internal] load metadata for docker.io/library/golang:1.26.10-alpine
+#6 DONE 1.1s
+
+#5 [internal] load metadata for docker.io/library/alpine:3.23
+#5 DONE 1.1s
+
+#7 [internal] load .dockerignore
+#7 transferring context: 90B 0.0s done
+#7 DONE 0.0s
+
+#8 [internal] load build context
+#8 DONE 0.0s
+
+#9 [stage-1 1/3] FROM docker.io/library/alpine:3.23@sha256:ff7f0c727dd796aa36787bfcd9a64bf35a6ce72a73451b3359fde849b6703d63
+#9 resolve docker.io/library/alpine:3.23@sha256:ff7f0c727dd796aa36787bfcd9a64bf35a6ce72a73451b3359fde849b6703d63 0.0s done
+#9 DONE 0.0s
+
+#10 [build 1/6] FROM docker.io/library/golang:1.26.10-alpine@sha256:a2012b4a1d1f9f7e9f44e0d39b805a901e856b1dd80b4e6ee4338db547050308
+#10 resolve docker.io/library/golang:1.26.10-alpine@sha256:a2012b4a1d1f9f7e9f44e0d39b805a901e856b1dd80b4e6ee4338db547050308
+#10 resolve docker.io/library/golang:1.26.10-alpine@sha256:a2012b4a1d1f9f7e9f44e0d39b805a901e856b1dd80b4e6ee4338db547050308 0.0s done
+#10 DONE 0.1s
+
+#8 [internal] load build context
+#8 transferring context: 42.00kB 0.0s done
+#8 DONE 0.0s
+
+#11 [build 2/6] WORKDIR /src
+#11 CACHED
+
+#12 [build 3/6] COPY go.mod go.sum ./
+#12 CACHED
+
+#13 [build 4/6] RUN go mod download
+#13 CACHED
+
+#14 [build 5/6] COPY . .
+#14 DONE 0.1s
+
+#15 [build 6/6] RUN CGO_ENABLED=0 go build -trimpath -o /service ./ads/internal/cmd/ads-api
+#15 DONE 23.7s
+
+#16 [stage-1 2/3] RUN apk add --no-cache ca-certificates && adduser -D -u 10001 app
+#16 CACHED
+
+#17 [stage-1 3/3] COPY --from=build /service /service
+#17 DONE 0.1s
+
+#18 exporting to image
+#18 exporting layers
+#18 exporting layers 1.5s done
+#18 exporting manifest sha256:f7a12e91d0b4d9e8422dd8be428c71d4240fa3a230125a156b0aab1e62976f9e 0.0s done
+#18 exporting config sha256:3ebe91e2b44b72a9b8277c50d145123dceb860fe8ed8921d5f4237240cbb729c 0.0s done
+#18 exporting attestation manifest sha256:9ac3ba4f794c2a094f0c1f78f1cb6a8ad4cd35688cd51d586f018d53d2f3e8b3 0.0s done
+#18 exporting manifest list sha256:e08f2f497f8b9233f74934c47b33f0096d1bbd446463dad681a6abd8940f935b 0.0s done
+#18 naming to docker.io/library/backend-go-v2-ads-api:latest
+#18 naming to docker.io/library/backend-go-v2-ads-api:latest done
+#18 unpacking to docker.io/library/backend-go-v2-ads-api:latest
+#18 unpacking to docker.io/library/backend-go-v2-ads-api:latest 0.2s done
+#18 DONE 1.8s
+
+#19 resolving provenance for metadata file
+#19 DONE 0.0s
+ Image backend-go-v2-ads-api Built 

@@ -1,0 +1,24 @@
+ Container backend-go-v2-test-database-1 Running 
+ Container backend-go-v2-test-database-1 Waiting 
+ Container backend-go-v2-test-database-1 Healthy 
+Checking formatting
+Running go vet
+Running unit, PostgreSQL and HTTP integration tests with race detection
+ok  	github.mpi-internal.com/leboncoin/backend-hiring-assessment/ads/internal/cmd/ads-api	1.020s
+?   	github.mpi-internal.com/leboncoin/backend-hiring-assessment/ads/internal/cmd/ads-api/dao	[no test files]
+ok  	github.mpi-internal.com/leboncoin/backend-hiring-assessment/ads/internal/cmd/ads-api/dao/mock	1.032s
+ok  	github.mpi-internal.com/leboncoin/backend-hiring-assessment/ads/internal/cmd/ads-api/dao/postgres	3.537s
+ok  	github.mpi-internal.com/leboncoin/backend-hiring-assessment/ads/internal/cmd/ads-api/domain	1.024s
+ok  	github.mpi-internal.com/leboncoin/backend-hiring-assessment/ads/internal/cmd/ads-api/http	1.199s
+ok  	github.mpi-internal.com/leboncoin/backend-hiring-assessment/ads/internal/cmd/ads-api/usecase	1.065s
+ok  	github.mpi-internal.com/leboncoin/backend-hiring-assessment/ads/internal/cmd/ads-api/userclient	1.122s
+?   	github.mpi-internal.com/leboncoin/backend-hiring-assessment/common/httpresponse	[no test files]
+ok  	github.mpi-internal.com/leboncoin/backend-hiring-assessment/common/httpserver	1.034s
+?   	github.mpi-internal.com/leboncoin/backend-hiring-assessment/common/middleware	[no test files]
+?   	github.mpi-internal.com/leboncoin/backend-hiring-assessment/common/model	[no test files]
+?   	github.mpi-internal.com/leboncoin/backend-hiring-assessment/users/internal/cmd/users-api	[no test files]
+?   	github.mpi-internal.com/leboncoin/backend-hiring-assessment/users/pkg	[no test files]
+ok  	github.mpi-internal.com/leboncoin/backend-hiring-assessment/users/pkg/api	1.059s
+ok  	github.mpi-internal.com/leboncoin/backend-hiring-assessment/users/pkg/mock	1.026s
+Checking known vulnerabilities
+No vulnerabilities found.

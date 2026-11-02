@@ -1,0 +1,13 @@
+{
+  "identical": true,
+  "files_checked": 7,
+  "sha256": {
+    "pkg/client.go": "07338efd53152ee6aff868011a154fcee3ccaffc3deabdd932d929cf688e768d",
+    "pkg/api/client.go": "1b742dc6bb6903ccdf3d74e7fa77eeca2b3c62af8b9c5fb83fbd95d18438b2f7",
+    "pkg/api/client_test.go": "96b62dbe200b01c69ee0043a4b354e7da081c255d82bcf778eae8923f65eea48",
+    "pkg/mock/mock.go": "c46e4a549459fe8056f1ca315b8ce4a675d420090f7f3b7ea158b1aac9d9d920",
+    "pkg/mock/mock_test.go": "40277b9de664b2ca48c2894826dd2c702d04488e75dc75671242493c8a301e25",
+    "internal/cmd/users-api/Dockerfile": "7f903b94f03f718134297731acb3552d16bef7f38b073cb6a27fd2324ff83f44",
+    "internal/cmd/users-api/main.go": "a965f1e3bac134765fb83d1a36c6a94fb2b8e9f133a33631c629911fea03d86b"
+  }
+}

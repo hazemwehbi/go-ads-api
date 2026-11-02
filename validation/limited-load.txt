@@ -1,0 +1,20 @@
+ Container backend-go-v2-test-database-1 Running 
+ Container backend-go-v2-test-database-1 Waiting 
+ Container backend-go-v2-test-database-1 Healthy 
+=== RUN   TestLimitedLoad
+=== RUN   TestLimitedLoad/healthy
+    load_integration_test.go:183: LOAD_RESULT {"counts":{"ad_imports":100,"ad_publications":100,"ads":10100},"db_wait_count":2506,"db_wait_total_ms":3277.584,"invalid":0,"max_publications_per_owner":5,"null_usernames":0,"requests":3000,"rps":4631.363446289673,"scenario":"healthy","seconds":0.647757412,"statuses":{"200":2700,"201":100,"429":200},"timings":{"create_201":{"Count":100,"P50":8.33,"P95":31.394,"P99":52.441,"Max":67.882},"create_429":{"Count":200,"P50":5.587,"P95":13.489,"P99":31.72,"Max":47.789},"detail_200":{"Count":2400,"P50":2.236,"P95":8.684,"P99":29.888,"Max":66.251},"list_200":{"Count":300,"P50":4.055,"P95":11.814,"P99":34.423,"Max":64.627}},"upstream_calls":160,"upstream_max_active":2,"workers":20}
+=== RUN   TestLimitedLoad/slow_users
+    load_integration_test.go:183: LOAD_RESULT {"counts":{"ad_imports":100,"ad_publications":100,"ads":10100},"db_wait_count":2594,"db_wait_total_ms":7126.184,"invalid":0,"max_publications_per_owner":5,"null_usernames":2400,"requests":3000,"rps":4381.362918274186,"scenario":"slow_users","seconds":0.684718444,"statuses":{"200":2700,"201":100,"429":200},"timings":{"create_201":{"Count":100,"P50":7.349,"P95":27.656,"P99":39.428,"Max":41.599},"create_429":{"Count":200,"P50":5.155,"P95":12.283,"P99":23.327,"Max":33.043},"detail_200":{"Count":2400,"P50":2.654,"P95":17.895,"P99":209.79,"Max":281.322},"list_200":{"Count":300,"P50":4.103,"P95":15.896,"P99":32.567,"Max":37.906}},"upstream_calls":24,"upstream_max_active":20,"workers":40}
+=== RUN   TestLimitedLoad/slow_database_writes
+    load_integration_test.go:183: LOAD_RESULT {"counts":{"ad_imports":100,"ad_publications":100,"ads":10100},"db_wait_count":2990,"db_wait_total_ms":25132.715,"invalid":0,"max_publications_per_owner":5,"null_usernames":0,"requests":3000,"rps":3274.609084589929,"scenario":"slow_database_writes","seconds":0.916139888,"statuses":{"200":2700,"201":100,"429":200},"timings":{"create_201":{"Count":100,"P50":66.999,"P95":98.607,"P99":136.329,"Max":142.868},"create_429":{"Count":200,"P50":6.327,"P95":14.174,"P99":25.45,"Max":30.151},"detail_200":{"Count":2400,"P50":4.319,"P95":44.599,"P99":83.147,"Max":165.237},"list_200":{"Count":300,"P50":5.882,"P95":43.013,"P99":68.773,"Max":92.907}},"upstream_calls":160,"upstream_max_active":2,"workers":40}
+=== RUN   TestLimitedLoad/healthy_again
+    load_integration_test.go:183: LOAD_RESULT {"counts":{"ad_imports":100,"ad_publications":100,"ads":10100},"db_wait_count":2643,"db_wait_total_ms":2808.156,"invalid":0,"max_publications_per_owner":5,"null_usernames":0,"requests":3000,"rps":5572.205346406213,"scenario":"healthy_again","seconds":0.538386476,"statuses":{"200":2700,"201":100,"429":200},"timings":{"create_201":{"Count":100,"P50":7.354,"P95":28.159,"P99":52.782,"Max":54.899},"create_429":{"Count":200,"P50":5.255,"P95":11.762,"P99":15.73,"Max":19.417},"detail_200":{"Count":2400,"P50":2.018,"P95":7.024,"P99":20.118,"Max":37.643},"list_200":{"Count":300,"P50":3.525,"P95":8.781,"P99":12.694,"Max":33.079}},"upstream_calls":160,"upstream_max_active":2,"workers":20}
+--- PASS: TestLimitedLoad (4.13s)
+    --- PASS: TestLimitedLoad/healthy (1.10s)
+    --- PASS: TestLimitedLoad/slow_users (0.98s)
+    --- PASS: TestLimitedLoad/slow_database_writes (1.20s)
+    --- PASS: TestLimitedLoad/healthy_again (0.83s)
+PASS
+ok  	github.mpi-internal.com/leboncoin/backend-hiring-assessment/ads/internal/cmd/ads-api/dao/postgres	4.134s
+Limited load test passed.

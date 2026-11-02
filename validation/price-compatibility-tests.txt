@@ -1,0 +1,9 @@
+=== RUN   TestIntegrationHTTPCreateRetryAndQuota
+--- PASS: TestIntegrationHTTPCreateRetryAndQuota (0.15s)
+=== RUN   TestIntegrationHTTPPriceCompatibility
+2026/11/01 23:09:28 WARN unable to get ad owner username reason=not_found ad_id=1 user_id=aaaaaaaa-aaaa-4aaa-aaaa-aaaaaaaaaaaa error="user lookup: not_found"
+2026/11/01 23:09:28 WARN unable to get ad owner username reason=not_found ad_id=2 user_id=aaaaaaaa-aaaa-4aaa-aaaa-aaaaaaaaaaaa error="user lookup: not_found"
+2026/11/01 23:09:28 WARN unable to get ad owner username reason=not_found ad_id=3 user_id=aaaaaaaa-aaaa-4aaa-aaaa-aaaaaaaaaaaa error="user lookup: not_found"
+--- PASS: TestIntegrationHTTPPriceCompatibility (0.16s)
+PASS
+ok  	github.mpi-internal.com/leboncoin/backend-hiring-assessment/ads/internal/cmd/ads-api/dao/postgres	1.330s

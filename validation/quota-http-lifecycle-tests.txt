@@ -1,0 +1,4 @@
+=== RUN   TestIntegrationHTTPCreateRetryAndQuota
+--- PASS: TestIntegrationHTTPCreateRetryAndQuota (0.17s)
+PASS
+ok  	github.mpi-internal.com/leboncoin/backend-hiring-assessment/ads/internal/cmd/ads-api/dao/postgres	1.182s

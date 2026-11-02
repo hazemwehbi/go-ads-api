@@ -1,0 +1,9 @@
+=== RUN   TestIntegrationHTTPImportLostResponse
+--- PASS: TestIntegrationHTTPImportLostResponse (0.14s)
+=== RUN   TestIntegrationHTTPImportRollbackRetry
+2026/11/01 23:20:29 ERROR unable to import ads user_id=aaaaaaaa-aaaa-4aaa-aaaa-aaaaaaaaaaaa idempotency_key=retry-batch ads_count=2 error="unable to import ad 1: unable to create ad: ERROR: injected second-row failure (SQLSTATE P0001)"
+--- PASS: TestIntegrationHTTPImportRollbackRetry (0.13s)
+=== RUN   TestIntegrationImportConcurrentReplayAndOwnership
+--- PASS: TestIntegrationImportConcurrentReplayAndOwnership (0.29s)
+PASS
+ok  	github.mpi-internal.com/leboncoin/backend-hiring-assessment/ads/internal/cmd/ads-api/dao/postgres	1.597s

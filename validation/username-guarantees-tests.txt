@@ -1,0 +1,16 @@
+=== RUN   TestCachedUsernameRefreshesAfterRename
+--- PASS: TestCachedUsernameRefreshesAfterRename (0.01s)
+PASS
+ok  	github.mpi-internal.com/leboncoin/backend-hiring-assessment/ads/internal/cmd/ads-api/userclient	1.031s
+=== RUN   TestIntegrationHTTPDeleteOwnershipAndIsolation
+--- PASS: TestIntegrationHTTPDeleteOwnershipAndIsolation (0.13s)
+=== RUN   TestIntegrationHTTPGetAdSelectsRequestedRecord
+=== RUN   TestIntegrationHTTPGetAdSelectsRequestedRecord/Chair
+=== RUN   TestIntegrationHTTPGetAdSelectsRequestedRecord/Bike
+=== RUN   TestIntegrationHTTPGetAdSelectsRequestedRecord/Chair#01
+--- PASS: TestIntegrationHTTPGetAdSelectsRequestedRecord (0.11s)
+    --- PASS: TestIntegrationHTTPGetAdSelectsRequestedRecord/Chair (0.00s)
+    --- PASS: TestIntegrationHTTPGetAdSelectsRequestedRecord/Bike (0.00s)
+    --- PASS: TestIntegrationHTTPGetAdSelectsRequestedRecord/Chair#01 (0.00s)
+PASS
+ok  	github.mpi-internal.com/leboncoin/backend-hiring-assessment/ads/internal/cmd/ads-api/dao/postgres	1.271s

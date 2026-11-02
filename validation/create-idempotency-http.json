@@ -1,0 +1,14 @@
+{
+  "owner": "f7e25773-1d11-4bf1-a229-df497a1d97ca",
+  "checks": [
+    "initial creation: 201",
+    "normalized legacy price and title replay same ID",
+    "changed content: 409",
+    "five publications enforce quota",
+    "replay succeeds at full quota",
+    "same import key independent and quota exempt",
+    "deleted ad replay does not recreate it",
+    "created ads removed; receipts and publication history retained by design"
+  ],
+  "passed": 8
+}

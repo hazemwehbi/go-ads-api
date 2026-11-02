@@ -1,0 +1,60 @@
+name: backend-go-v2
+services:
+  ads-api:
+    build:
+      context: .
+      dockerfile: ads/internal/cmd/ads-api/Dockerfile
+    environment:
+      HTTP_ADDR: ":8080"
+      DATABASE_URL: postgres://ads:ads@ads-database:5432/ads?sslmode=disable
+      IDENTITY_URL: http://users-api:8081
+      IDENTITY_TIMEOUT: ${IDENTITY_TIMEOUT:-250ms}
+      IDENTITY_CACHE_SIZE: ${IDENTITY_CACHE_SIZE:-1000}
+      IDENTITY_CACHE_TTL: ${IDENTITY_CACHE_TTL:-1m}
+      IDENTITY_MAX_CONCURRENT: ${IDENTITY_MAX_CONCURRENT:-20}
+      IDENTITY_FAILURE_THRESHOLD: ${IDENTITY_FAILURE_THRESHOLD:-5}
+      IDENTITY_OPEN_DURATION: ${IDENTITY_OPEN_DURATION:-5s}
+    ports: ["127.0.0.1:8080:8080"]
+    depends_on:
+      ads-database: {condition: service_healthy}
+      users-api: {condition: service_healthy}
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--spider", "http://localhost:8080/health"]
+      interval: 2s
+      timeout: 2s
+      retries: 30
+  users-api:
+    build:
+      context: .
+      dockerfile: users/internal/cmd/users-api/Dockerfile
+    environment: {HTTP_ADDR: ":8081"}
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--spider", "http://localhost:8081/health"]
+      interval: 2s
+      timeout: 2s
+      retries: 30
+  ads-database:
+    image: postgres:16-alpine
+    environment: {POSTGRES_USER: ads, POSTGRES_PASSWORD: ads, POSTGRES_DB: ads}
+    ports: ["127.0.0.1:15440:5432"]
+    volumes:
+      - ads-data:/var/lib/postgresql/data
+      - ./ads/internal/cmd/ads-api/dao/postgres/migrations:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ads -d ads"]
+      interval: 2s
+      timeout: 2s
+      retries: 30
+  test-database:
+    image: postgres:16-alpine
+    profiles: ["test"]
+    environment: {POSTGRES_USER: ads, POSTGRES_PASSWORD: ads, POSTGRES_DB: ads_test}
+    ports: ["127.0.0.1:15441:5432"]
+    tmpfs: [/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ads -d ads_test"]
+      interval: 2s
+      timeout: 2s
+      retries: 30
+volumes:
+  ads-data:

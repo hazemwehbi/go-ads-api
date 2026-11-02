@@ -1,0 +1,16 @@
+ok  	github.mpi-internal.com/leboncoin/backend-hiring-assessment/ads/internal/cmd/ads-api	1.025s
+?   	github.mpi-internal.com/leboncoin/backend-hiring-assessment/ads/internal/cmd/ads-api/dao	[no test files]
+ok  	github.mpi-internal.com/leboncoin/backend-hiring-assessment/ads/internal/cmd/ads-api/dao/mock	1.031s
+ok  	github.mpi-internal.com/leboncoin/backend-hiring-assessment/ads/internal/cmd/ads-api/dao/postgres	3.307s
+ok  	github.mpi-internal.com/leboncoin/backend-hiring-assessment/ads/internal/cmd/ads-api/domain	1.024s
+ok  	github.mpi-internal.com/leboncoin/backend-hiring-assessment/ads/internal/cmd/ads-api/http	1.200s
+ok  	github.mpi-internal.com/leboncoin/backend-hiring-assessment/ads/internal/cmd/ads-api/usecase	1.056s
+ok  	github.mpi-internal.com/leboncoin/backend-hiring-assessment/ads/internal/cmd/ads-api/userclient	1.056s
+?   	github.mpi-internal.com/leboncoin/backend-hiring-assessment/common/httpresponse	[no test files]
+ok  	github.mpi-internal.com/leboncoin/backend-hiring-assessment/common/httpserver	1.040s
+?   	github.mpi-internal.com/leboncoin/backend-hiring-assessment/common/middleware	[no test files]
+?   	github.mpi-internal.com/leboncoin/backend-hiring-assessment/common/model	[no test files]
+?   	github.mpi-internal.com/leboncoin/backend-hiring-assessment/users/internal/cmd/users-api	[no test files]
+?   	github.mpi-internal.com/leboncoin/backend-hiring-assessment/users/pkg	[no test files]
+ok  	github.mpi-internal.com/leboncoin/backend-hiring-assessment/users/pkg/api	1.065s
+ok  	github.mpi-internal.com/leboncoin/backend-hiring-assessment/users/pkg/mock	1.039s

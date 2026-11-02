@@ -1,0 +1,16 @@
+	github.mpi-internal.com/leboncoin/backend-hiring-assessment/ads/internal/cmd/ads-api		coverage: 0.0% of statements
+	github.mpi-internal.com/leboncoin/backend-hiring-assessment/ads/internal/cmd/ads-api/dao		coverage: 0.0% of statements
+ok  	github.mpi-internal.com/leboncoin/backend-hiring-assessment/ads/internal/cmd/ads-api/dao/mock	1.054s	coverage: 87.5% of statements
+ok  	github.mpi-internal.com/leboncoin/backend-hiring-assessment/ads/internal/cmd/ads-api/dao/postgres	2.590s	coverage: 91.7% of statements
+ok  	github.mpi-internal.com/leboncoin/backend-hiring-assessment/ads/internal/cmd/ads-api/domain	1.030s	coverage: 100.0% of statements
+ok  	github.mpi-internal.com/leboncoin/backend-hiring-assessment/ads/internal/cmd/ads-api/http	1.228s	coverage: 91.7% of statements
+ok  	github.mpi-internal.com/leboncoin/backend-hiring-assessment/ads/internal/cmd/ads-api/usecase	1.098s	coverage: 91.8% of statements
+ok  	github.mpi-internal.com/leboncoin/backend-hiring-assessment/ads/internal/cmd/ads-api/userclient	1.087s	coverage: 100.0% of statements
+	github.mpi-internal.com/leboncoin/backend-hiring-assessment/common/httpresponse		coverage: 0.0% of statements
+	github.mpi-internal.com/leboncoin/backend-hiring-assessment/common/httpserver		coverage: 0.0% of statements
+	github.mpi-internal.com/leboncoin/backend-hiring-assessment/common/middleware		coverage: 0.0% of statements
+	github.mpi-internal.com/leboncoin/backend-hiring-assessment/common/model		coverage: 0.0% of statements
+	github.mpi-internal.com/leboncoin/backend-hiring-assessment/users/internal/cmd/users-api		coverage: 0.0% of statements
+?   	github.mpi-internal.com/leboncoin/backend-hiring-assessment/users/pkg	[no test files]
+ok  	github.mpi-internal.com/leboncoin/backend-hiring-assessment/users/pkg/api	1.065s	coverage: 80.6% of statements
+ok  	github.mpi-internal.com/leboncoin/backend-hiring-assessment/users/pkg/mock	1.043s	coverage: 100.0% of statements

@@ -1,0 +1,8 @@
+=== RUN   TestIntegrationHTTPDeleteOwnershipAndIsolation
+--- PASS: TestIntegrationHTTPDeleteOwnershipAndIsolation (0.13s)
+=== RUN   TestIntegrationQuotaConcurrentInstances
+--- PASS: TestIntegrationQuotaConcurrentInstances (0.34s)
+=== RUN   TestIntegrationDeleteAndSearch
+--- PASS: TestIntegrationDeleteAndSearch (0.14s)
+PASS
+ok  	github.mpi-internal.com/leboncoin/backend-hiring-assessment/ads/internal/cmd/ads-api/dao/postgres	1.634s

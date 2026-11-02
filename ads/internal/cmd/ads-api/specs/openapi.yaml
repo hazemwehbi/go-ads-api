@@ -1,0 +1,501 @@
+openapi: "3.0.3"
+
+info:
+  title: Ads API
+  description: JSON writes require application/json, at most 1 MiB, unique keys, no unknown fields or trailing documents, and bounded nesting. Router-generated 404/405 and transport errors are outside the application JSON error contract.
+  version: "1.0.0"
+
+servers:
+  - url: http://localhost:8080
+    description: Local development server
+
+paths:
+  /health:
+    get:
+      summary: Health check
+      operationId: healthCheck
+      tags: [infra]
+      responses:
+        "200":
+          description: Service is up
+
+  /ads:
+    get:
+      summary: List ads
+      operationId: listAds
+      tags: [ads]
+      parameters:
+        - name: limit
+          in: query
+          schema: {type: integer, minimum: 1, maximum: 100, default: 50}
+        - name: before_id
+          in: query
+          description: Exclusive ID cursor. Results are ordered by descending ID.
+          schema: {type: integer, format: int64, minimum: 1}
+        - name: title
+          in: query
+          description: Case-insensitive substring match on the ad title.
+          schema:
+            type: string
+          example: bike
+        - name: user_id
+          in: query
+          description: Filter ads belonging to this owner. Must be a valid UUID.
+          schema:
+            type: string
+            format: uuid
+          example: "00000000-0000-0000-0000-000000000001"
+        - name: min_price
+          in: query
+          description: Inclusive lower bound on the price, in euros with at most 2 decimals. 0 means no lower bound. Cannot be combined with min_price_cents or max_price_cents.
+          schema:
+            type: number
+            format: double
+            minimum: 0
+            maximum: 10000000000
+          example: 50
+        - name: max_price
+          in: query
+          description: Inclusive upper bound on the price, in euros with at most 2 decimals. 
+          schema:
+            type: number
+            format: double
+            minimum: 0
+            maximum: 10000000000
+          example: 500
+        - name: min_price_cents
+          in: query
+          deprecated: true
+          description: Inclusive lower bound on the price (in cents). 0 means no lower bound. Deprecated, use min_price instead
+          schema:
+            type: integer
+            format: int64
+            minimum: 0
+            maximum: 1000000000000
+          example: 5000
+        - name: max_price_cents
+          in: query
+          deprecated: true
+          description: Inclusive upper bound on the price (in cents). Zero matches free ads. Deprecated, use max_price instead. Cannot be combined with min_price or max_price.
+          schema:
+            type: integer
+            format: int64
+            minimum: 0
+            maximum: 1000000000000
+          example: 50000
+      responses:
+        "200":
+          description: Up to limit matching ads ordered by descending ID. Keep filters unchanged when following next_before_id.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListAdsResponse"
+        "504":
+          description: The request deadline expired.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          description: Unexpected server error.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "400":
+          description: Invalid query encoding, UTF-8 or NUL, invalid parameter value, or mixed euro and cent price filters.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+    post:
+      summary: Create an ad
+      operationId: createAd
+      tags: [ads]
+      security:
+        - userID: []
+      parameters:
+        - name: Idempotency-Key
+          in: header
+          required: false
+          description: Optional key scoped to caller and POST /ads. Reuse for retries. Same normalized content returns the original 201 and ID without consuming quota, even after deletion. Different content returns 409. Receipts do not expire. Omit for a new non-deduplicated request. Empty or repeated headers are rejected.
+          schema:
+            type: string
+            minLength: 1
+            maxLength: 128
+            pattern: '^[!-~]+$'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateAdBody"
+      responses:
+        "201":
+          description: Ad created or original creation replayed. The body contains the original identifier.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreateAdResponse"
+        "400":
+          description: Malformed or unknown request body field, invalid price, both price and price_cents sent, or invalid Idempotency-Key.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "401":
+          description: Missing or invalid Authorization UUID.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "409":
+          description: The key was already used for a single creation with different content.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "429":
+          description: Five publications already recorded in the rolling 24 hours. Deletion does not refund quota.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "413":
+          description: Request exceeds 1 MiB.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "504":
+          description: The request deadline expired. A timed-out write may have committed; reuse the same idempotency key when retrying a create or import.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          description: Unexpected server error.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /ads/import:
+    post:
+      summary: Bulk import ads
+      operationId: importAds
+      tags: [ads]
+      security:
+        - userID: []
+      parameters:
+        - name: Idempotency-Key
+          in: header
+          required: true
+          description: Required single header value chosen by the client and reused on retries; 1..128 visible ASCII characters without spaces. Empty or repeated headers are rejected.
+          schema:
+            type: string
+            minLength: 1
+            maxLength: 128
+            pattern: '^[!-~]+$'
+          example: d2e201e8-7d32-4882-9473-9063e3a6396c
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ImportAdsBody"
+      responses:
+        "201":
+          description: Every ad created, or the ads created by the first call
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ImportAdsResponse"
+        "400":
+          description: Malformed or unknown request body field, or an invalid ad (invalid price, both price and price_cents sent)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "401":
+          description: Missing or invalid Authorization UUID
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "409":
+          description: The Idempotency-Key was already used with other ads
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "413":
+          description: Request exceeds 1 MiB.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "504":
+          description: The request deadline expired. A timed-out write may have committed; reuse the same idempotency key when retrying a create or import.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          description: Unexpected server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /ads/{adID}:
+    get:
+      summary: Get an ad by ID
+      operationId: getAd
+      tags: [ads]
+      parameters:
+        - name: adID
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+          example: 1
+      responses:
+        "200":
+          description: The requested ad, with its owner's username.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AdDetails"
+        "400":
+          description: adID must be a positive int64.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: No matching ad (delete also returns 404 for another owner).
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "502":
+          description: Invalid user response or opaque upstream HTTP error. The supplied client cannot distinguish non-404 HTTP statuses safely.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "504":
+          description: The overall request deadline expired; a user-client timeout alone returns 200 with a null username.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          description: Unexpected server error.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+    delete:
+      summary: Delete an ad by ID
+      description: Only the owner of the ad can delete it.
+      operationId: deleteAd
+      tags: [ads]
+      security:
+        - userID: []
+      parameters:
+        - name: adID
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+          example: 1
+      responses:
+        "204":
+          description: Ad deleted.
+        "400":
+          description: adID must be a positive int64.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "401":
+          description: Missing or invalid Authorization UUID.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: No matching ad (delete also returns 404 for another owner).
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "504":
+          description: The request deadline expired. The delete may have completed; a retry can return 404.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          description: Unexpected server error.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+components:
+  securitySchemes:
+    userID:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Non-nil UUID normalized to canonical form. This educational header is not proof of identity; a trusted gateway must authenticate and overwrite it.
+
+  schemas:
+    Error:
+      type: object
+      required: [error]
+      additionalProperties: false
+      properties:
+        error:
+          type: string
+
+    Ad:
+      type: object
+      required: [id, title, price, price_cents, photo_url, user_id, created_at]
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        title:
+          type: string
+          example: mountain bike
+        price:
+          type: number
+          format: double
+          description: Price in euros, with at most 2 decimals.
+          example: 150.5
+        price_cents:
+          type: integer
+          format: int64
+          deprecated: true
+          description: Price in euro cents. Deprecated, read price instead.
+          example: 15050
+        photo_url:
+          type: string
+          example: https://example.com/bike.jpg
+        user_id:
+          type: string
+          example: "00000000-0000-0000-0000-000000000001"
+        created_at:
+          type: string
+          format: date-time
+          example: "2024-01-15T10:00:00Z"
+
+    AdDetails:
+      allOf:
+        - $ref: "#/components/schemas/Ad"
+        - type: object
+          required: [username]
+          properties:
+            username:
+              type: string
+              nullable: true
+              description: Display nickname (possibly cached within the configured TTL), or null for a missing user, transient network failure, timeout, open circuit or exhausted lookup capacity. Never an authorization signal.
+              example: alice
+
+    ListAdsResponse:
+      type: object
+      required: [ads, next_before_id]
+      properties:
+        next_before_id:
+          type: integer
+          format: int64
+          nullable: true
+          description: Exclusive cursor for the next page, or null at the end.
+        ads:
+          type: array
+          items:
+            $ref: "#/components/schemas/Ad"
+
+    CreateAdBody:
+      type: object
+      additionalProperties: false
+      oneOf:
+        - required: [price]
+          not: {required: [price_cents]}
+        - required: [price_cents]
+          not: {required: [price]}
+      description: Exactly one of price and price_cents must be sent.
+      required: [title, photo_url]
+      properties:
+        title:
+          type: string
+          minLength: 1
+          description: Trimmed before validation; the resulting title must have 1..200 Unicode code points. Whitespace-only and NUL are rejected.
+          example: mountain bike
+        price:
+          type: number
+          format: double
+          minimum: 0
+          maximum: 10000000000
+          multipleOf: 0.01
+          description: Price in euros, with at most 2 decimals.
+          example: 150.5
+        price_cents:
+          type: integer
+          format: int64
+          deprecated: true
+          minimum: 0
+          maximum: 1000000000000
+          description: Price in euro cents. Deprecated, send price 
+          example: 15050
+        photo_url:
+          type: string
+          format: uri
+          maxLength: 2048
+          description: Absolute HTTP(S) URL with a hostname, without credentials, at most 2048 UTF-8 bytes. Stored without fetching.
+          example: https://example.com/bike.jpg
+
+    ImportAdsBody:
+      type: object
+      additionalProperties: false
+      required: [ads]
+      properties:
+        ads:
+          type: array
+          minItems: 1
+          maxItems: 100
+          items:
+            $ref: "#/components/schemas/CreateAdBody"
+
+    ImportAdsResponse:
+      type: object
+      required: [ids]
+      properties:
+        ids:
+          type: array
+          description: Identifiers of the created ads
+          items:
+            type: integer
+            format: int64
+          example: [101, 102]
+
+    CreateAdResponse:
+      type: object
+      required: [id]
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Generated identifier of the new ad.
+          example: 42

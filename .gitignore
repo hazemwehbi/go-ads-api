@@ -1,0 +1,23 @@
+# Compiled binaries.
+/bin/
+/out/
+
+# Local environment overrides.
+.env
+.env.*
+
+# Go workspace files, which are always local to a machine.
+go.work
+go.work.sum
+
+# Editors and IDEs.
+.idea/
+.vscode/
+*.swp
+
+# macOS.
+.DS_Store
+
+# Local validation outputs.
+coverage.out
+*.test
